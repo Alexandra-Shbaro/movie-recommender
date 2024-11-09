@@ -1,14 +1,14 @@
 @font-face {
     font-family: 'BebasNeue' ;
-    src: url('../Assets/Fonts/BebasNeue-Regular.ttf');
+    src: url('../assets/fonts/BebasNeue-Regular.ttf');
 }
 @font-face {
     font-family: "OpenSans";
-    src: url('../Assets/Fonts/OpenSans-Regular.ttf');
+    src: url('../assets/fonts/OpenSans-Regular.ttf');
 }
 @font-face {
     font-family: "OpenSans";
-    src: url('../Assets/Fonts/OpenSans-Bold.ttf');
+    src: url('../assets/fonts/OpenSans-Bold.ttf');
     font-weight: bold;
 }
 html{
