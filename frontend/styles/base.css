@@ -1,4 +1,10 @@
-
+:root{
+    --black:#000000;
+    --white:#ffffff;
+    --grey:#564D4D;
+    --red: #DB0000;
+    --maroon:#831010;
+}
 @font-face {
     font-family: 'BebasNeue' ;
     src: url('../assets/fonts/BebasNeue-Regular.ttf');
