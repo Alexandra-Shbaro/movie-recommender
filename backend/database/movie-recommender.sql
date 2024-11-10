@@ -18,6 +18,9 @@
 --
 -- Table structure for table `genre`
 --
+CREATE DATABASE IF NOT EXISTS movie_recommender;
+USE movie_recommender;
+
 
 DROP TABLE IF EXISTS `genre`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -26,7 +29,7 @@ CREATE TABLE `genre` (
   `genre_id` int NOT NULL AUTO_INCREMENT,
   `genre_name` varchar(255) NOT NULL,
   PRIMARY KEY (`genre_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +56,7 @@ CREATE TABLE `movie` (
   `movie_image` varchar(255) DEFAULT NULL,
   `movie_producer` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`movie_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +84,7 @@ CREATE TABLE `movie_genre` (
   KEY `genre_id` (`genre_id`),
   CONSTRAINT `movie_genre_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`),
   CONSTRAINT `movie_genre_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`genre_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,7 +116,7 @@ CREATE TABLE `movie_metrics` (
   PRIMARY KEY (`movie_metrics_id`),
   KEY `movie_id` (`movie_id`),
   CONSTRAINT `movie_metrics_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,7 +141,7 @@ CREATE TABLE `user` (
   `password` varchar(1000) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +170,7 @@ CREATE TABLE `user_bookmark` (
   KEY `movie_id` (`movie_id`),
   CONSTRAINT `user_bookmark_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   CONSTRAINT `user_bookmark_ibfk_2` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +196,7 @@ CREATE TABLE `user_movie_metrics` (
   `user_time` int NOT NULL,
   PRIMARY KEY (`movie_id`,`user_id`),
   CONSTRAINT `user_movie_metrics_ibfk_2` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +224,7 @@ CREATE TABLE `user_rating` (
   KEY `movie_id` (`movie_id`),
   CONSTRAINT `user_rating_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   CONSTRAINT `user_rating_ibfk_2` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +235,10 @@ LOCK TABLES `user_rating` WRITE;
 /*!40000 ALTER TABLE `user_rating` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user_rating` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+--
+-- Table structure for table `cast`
+--
 
 DROP TABLE IF EXISTS `cast`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -245,10 +251,12 @@ CREATE TABLE `cast` (
   PRIMARY KEY (`cast_id`),
   KEY `movie_id` (`movie_id`),
   CONSTRAINT `cast_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
 -- Dumping data for table `cast`
+--
 
 LOCK TABLES `cast` WRITE;
 /*!40000 ALTER TABLE `cast` DISABLE KEYS */;
@@ -262,5 +270,3 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2024-11-10 12:38:34
