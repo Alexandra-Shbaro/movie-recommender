@@ -13,8 +13,7 @@ function showSlides() {
     if (slideIndex > slides.length) { slideIndex = 1; }
     container.style.backgroundImage = `url(${slides[slideIndex - 1]})`;
 
-    setTimeout(showSlides, 3000); // Change image every 2 seconds
+    setTimeout(showSlides, 3000); 
 }
 
-// Initialize the slideshow
 showSlides();
