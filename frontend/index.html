@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/frontend/styles/base.css">
-    <link rel="stylesheet" href="/frontend/styles/styles.css">
+    <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/styles.css">
     <script src="./scripts/slideshow.js" defer></script>
     <title>Movie Recommender</title>
 </head>
+
 <body>
+
     <body>
         <!--header-->
         <div class="header-wrapper">
@@ -41,8 +44,17 @@
         <section class="hero-container" id="hero">
             <div class="hero"></div>
         </section>
-    
-        <!---->
-    
-</body>
+
+        <!--search bar-->
+        <section class="search">
+            <h2 class="title">Unlock your next favorite movie</h2>
+            <div class="search-container">
+                <input type="text" id="search" class="search-input" placeholder="Search for movies..."
+                    oninput="search()">
+                <button class="search-button" onclick="performSearch()">Search</button>
+            </div>
+        </section>
+
+    </body>
+
 </html>

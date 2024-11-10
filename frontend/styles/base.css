@@ -21,6 +21,11 @@ html{
     box-sizing: border-box;
     font-family: 'BebasNeue' ;
 }
+
+body{
+    background: linear-gradient( black, #000000, #564D4D);
+}
+
 input{
     outline: 0;
 }
