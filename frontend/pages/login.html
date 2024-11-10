@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <Link rel="stylesheet" href="../styles/base.css">
     <Link rel="stylesheet" href="../styles/login.css">
     <title>Document</title>
@@ -14,21 +15,31 @@
     <div class="login-page">
         <div class="login-window">
             <div class="login-title">
-                <h1>Login</h1>
-                <h1>Register</h1>
+                <h1><a id="login-title">Login</h1>
+                <h1><a id="register-title">Register</a></h1>
             </div>
-            <hr width="100%;" color="red" size="2">
+            <hr class="line" width="100%;" color="red" size="2">
             <div class="form-group">
                 <form class="form-group">
+                    <div>
                     <input type="text" id="username" placeholder="Username">
+                    <img src="../assets/Icons/usericon.png">
+                    </div>
+                    <div id="email-div">
                     <input type="text" id="email" placeholder="Email">
+                    <img src="../assets/Icons/email.png">
+                    </div>
+                    <div>
                     <input type="text" id="password" placeholder="Password">
+                    <img src="../assets/Icons/password.png">
+                    </div>
                     <button type="button" id="login-button" onclick="Login()">Login</button>
-                    <button type="button" id="login-button" onclick="Register()">Register</button>
+                    <button type="button" id="register-button" onclick="Register()">Register</button>
                 </form>
             </div>
         </div>
     </div>
+    <script src="../scripts/login.js"></script>
 </body>
 
 </html>

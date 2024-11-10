@@ -11,6 +11,9 @@ body{
     justify-content: center;
     align-items: center;
 }
+.login-title>h1>a{
+    cursor: pointer;
+}
 .login-window{
     display: flex;
     flex-direction: column;
@@ -27,7 +30,7 @@ hr{
     height: 5px;
     align-self: center;
     margin-bottom: 50px;
-    margin-left: -180px
+    margin-left: -290px
 }
 .form-group{
     display: flex;
@@ -35,9 +38,38 @@ hr{
     gap: 50px;
     width: 500px;
 }
-.form-group>input{
+.form-group>div{
+    position: relative;
+    width: 100%;
+}
+.form-group>div>input{
     font-size: 20px;
     background-color: #564D4D;
+    color: white;
     height: 55px;
     border-radius: 50px;
+    width: 100%;
+    padding-left: 50px;
+    font-family: "Opensans";
+}
+::placeholder {
+    color: white;
+    opacity: 1;
+  }
+.form-group>div>img{
+    position: absolute;
+    display: block;
+    left: 10px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+.form-group>button{
+    align-self: center;
+    width: 200px;
+    height: 70px;
+    background-color: #DB0000;
+    border-radius: 40px;
+    font-size: 28px;
 }
