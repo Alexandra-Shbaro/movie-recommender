@@ -53,27 +53,32 @@ const bookmark=()=>{
     })
 }
 
-const rate=()=>{
+const rate = (event) => {
+    const index = [...stars].indexOf(event.target);
     const rating = index + 1;
-    fetch(`localhost/movie-recommender/backend/api/rate.php?movie_id=${movie_id}$user_id=${user_id}&${rating}`)
-    .then(response=>response.json)
-    .then(data=>{
-        if(data.success){
-            console.log("rating updated");
-            stars.forEach((s,i)=>{
-                if (i < rating) {
-                    s.src="../assets/Icons/activestar.svg"
-                } else {
-                    s.src="../assets/Icons/rating.png"; 
-                }
-            });
-        }
-    }).catch(error =>{
-        console.error("Fetch error:", error);
-    })
-}
+    fetch(`http://localhost/movie-recommender/backend/api/rate.php?movie_id=${movie_id}&user_id=${user_id}&rating=${rating}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Rating updated");
 
-stars.forEach((star, index) => {
-    star.addEventListener('click',rate)
+                
+                stars.forEach((star, i) => {
+                    if (i < rating) {
+                        star.src = "../assets/Icons/activestar.svg";
+                    } else {
+                        star.src = "../assets/Icons/rating.png";
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+        });
+};
+
+stars.forEach((star) => {
+    star.addEventListener('click', rate);
 });
+
 loadDetails();
