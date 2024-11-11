@@ -11,18 +11,16 @@
 
 <body>
     <div class="full-container">
-        <div class="movie-rating">5/5<img class="star" src="../assets/Icons/rating.png"></div>
+        <div id="movie-rating" class="movie-rating"><img class="star" src="../assets/Icons/rating.png"></div>
         <div class="movie-details-container">
-            <div class="movie-img-container"><img src="../assets/Icons/movie-img-placeholder.png"></div>
+            <div id="movie-img" class="movie-img-container"><img ></div>
             <div class="movie-details">
-                <h1>L’Amour Ouf</h1>
-                <p>Local rebellious teenager Clotaire falls for his schoolmate Jackie - but gang violence leads him to a
-                    darker destructive path. After years apart, the star-crossed lovers discover that every path they've
-                    taken leads them back together.</p>
-                <div class="bookmark-container"><img src="../assets/Icons/bookmark.png">
+                <h1 id="title"></h1>
+                <p id="description"></p>
+                <div id="bookmark" class="bookmark-container"><img src="../assets/Icons/bookmark.png">
                     <h3>bookmark</h3>
                 </div>
-                <div class="stars-container">
+                <div id="user-rating" class="stars-container">
                     <img class="star" src="../assets/Icons/rating.png">
                     <img class="star" src="../assets/Icons/rating.png">
                     <img class="star" src="../assets/Icons/rating.png">
@@ -32,14 +30,12 @@
             </div>
         </div>
         <div class="genre-container">
-            <div class="genre"> Comedy</div>
-            <div class="genre"> Drama</div>
-            <div class="genre"> Romance</div>
         </div>
         <hr class="line">
-        <h2>Director: Gilles Lellouche</h2>
-        <h2>Stars: Adèle Exarchopoulos, François Civil, Malik Frikah</h2>
+        <h2 id="producer"></h2>
+        <h2 id="cast"></h2>
     </div>
+    <script src="../scripts/movie-details.js"></script>
 </body>
 
 </html>
