@@ -15,16 +15,13 @@ const loadDetails = () => {
         .then(data => {
             if (data.success) {
                 console.log("Movie Loaded successfully");
-                console.log("Movie Data:", data.data);
-
-                // Update movie details in the DOM
                 movieimage.src = data.data.movie_image;
                 title.innerHTML = data.data.movie_name;
                 description.innerHTML = data.data.movie_description;
                 producer.innerHTML = `Producer: ${data.data.movie_producer}`;
                 cast.innerHTML = `Cast: ${data.data.cast}`;
                 releaseDate.innerHTML = `Release Date: ${data.data.release_date}`;
-                movierating.innerHTML = `${data.data.rating} / 5<img class="star" src="../assets/Icons/rating.png"> `;
+                movierating.innerHTML = `${data.data.rating} / 5<img class="star" src="../assets/Icons/activestar.svg"> `;
             } else {
                 console.log("Error:", data.message);
             }

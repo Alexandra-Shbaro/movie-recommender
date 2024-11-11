@@ -79,3 +79,6 @@ const Login = () => {
             console.error("Fetch error:", error);
         });
 }
+
+loginbtn.addEventListener("click",Login);
+registerbtn.addEventListener("click",Register);
