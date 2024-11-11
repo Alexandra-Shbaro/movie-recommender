@@ -96,7 +96,6 @@ header {
     margin-bottom: 20px;
 }
 
-/* Style for the input field */
 .search-input {
     width: 80%;
     padding: 10px;
@@ -108,7 +107,6 @@ header {
 
 }
 
-/* Style for the search button */
 .search-button {
     padding: 10px 15px;
     margin-left: 35px;
@@ -121,12 +119,18 @@ header {
     border-radius: 25px;
 }
 
-/* Hover effect for the button */
 .search-button:hover {
     background-color: var(--red);
 }
 
-/* Focus effect for the input */
 .search-input:focus {
     border-color: var(--red);
+}
+
+/*main*/
+
+#container{
+    padding: 50px;
+    display:flex; 
+    flex-direction: column;
 }
