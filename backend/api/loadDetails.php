@@ -1,5 +1,4 @@
 <?php
-
 include("connection.php");
 
 if (!isset($_GET["movie_id"])) {
@@ -16,8 +15,8 @@ $sql = $connection->prepare("SELECT
                                 m.movie_image,
                                 m.movie_producer,
                                 g.genre_name,
-                                r.rating,
-                                c.actor_name
+                                r.rating_total,
+                                c.cast_name
                              FROM 
                                 movie m 
                              JOIN 
@@ -25,16 +24,14 @@ $sql = $connection->prepare("SELECT
                              JOIN 
                                 genre g ON mg.genre_id = g.genre_id 
                              JOIN 
-                                cast c ON m.movie_id = c.movie_id 
-                              JOIN
+                                `cast` c ON m.movie_id = c.movie_id 
+                             JOIN
                                 movie_metrics r ON r.movie_id = m.movie_id
                              WHERE 
                                 m.movie_id = ?");
 
 $sql->bind_param("i", $movie_id);
-
 $sql->execute();
-
 $result = $sql->get_result();
 
 $movie_data = [];
@@ -48,8 +45,8 @@ while ($row = $result->fetch_assoc()) {
             "release_date" => $row["release_date"],
             "movie_image" => $row["movie_image"],
             "movie_producer" => $row["movie_producer"],
-            "movie_description"=>$row["movie_description"],
-            "rating"=> $row["rating"],
+            "movie_description" => $row["movie_description"],
+            "rating" => $row["rating_total"], // Corrected to match SQL alias
         ];
     }
     
@@ -57,8 +54,8 @@ while ($row = $result->fetch_assoc()) {
         $genres[] = $row["genre_name"];
     }
     
-    if (!in_array($row["actor_name"], $cast)) {
-        $cast[] = $row["actor_name"];
+    if (!in_array($row["cast_name"], $cast)) { // Corrected to `cast_name`
+        $cast[] = $row["cast_name"];
     }
 }
 

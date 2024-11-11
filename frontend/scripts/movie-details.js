@@ -1,10 +1,13 @@
-localStorage.setItem("movie_id", 6)
-localStorage.setItem("user_id",5)
+// Retrieve movie_id and user_id from localStorage
+localStorage.setItem("movie_id", 6);
+localStorage.setItem("user_id", 5);
 const movie_id = localStorage.getItem("movie_id");
 const user_id = localStorage.getItem("user_id");
+
+// Select relevant elements
 const stars = document.querySelectorAll('#user-rating .star');
-const bookmarkImage=document.getElementById("bookmark-img")
-let bookmarked=0;
+const bookmarkImage = document.getElementById("bookmark-img");
+let bookmarked = 0;
 
 const loadDetails = () => {
     const movierating = document.getElementById("movie-rating");
@@ -26,7 +29,7 @@ const loadDetails = () => {
                 producer.innerHTML = `Producer: ${data.data.movie_producer}`;
                 cast.innerHTML = `Cast: ${data.data.cast}`;
                 releaseDate.innerHTML = `Release Date: ${data.data.release_date}`;
-                movierating.innerHTML = `${data.data.rating} / 5<img class="star" src="../assets/Icons/activestar.svg"> `;
+                movierating.innerHTML = `${data.data.rating} / 5 <img class="star" src="../assets/Icons/activestar.svg">`;
             } else {
                 console.log("Error:", data.message);
             }
@@ -36,67 +39,56 @@ const loadDetails = () => {
         });
 };
 
-const loaduserDetails = ()=>{
+const loaduserDetails = () => {
     fetch(`/movie-recommender/backend/api/loaduserDetails.php?movie_id=${movie_id}&user_id=${user_id}`)
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            console.log("movie info loaded successfuly");
-            rating = data.data.rating;
-            bookmarked=data.data.bookmark;
-            console.log(data.data.bookmark)
-            if(bookmarked===1){
-                bookmarkImage.src="../assets/Icons/activebookmark.png"
-            }else{
-                bookmarkImage.src="../assets/Icons/bookmark.png"
-            }
-            stars.forEach((s, i) => {
-                if (i < rating) {
-                    s.src = "../assets/Icons/activestar.svg";
-                } else {
-                    s.src = "../assets/Icons/rating.png";
-                }
-            });
-        }else{
-            console.log("what")
-        }
-    });
-}
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Movie info loaded successfully");
+                const rating = data.data.rating;
+                bookmarked = data.data.bookmark;
+                
+                // Update bookmark icon based on bookmark status
+                bookmarkImage.src = bookmarked === 1 ? "../assets/Icons/activebookmark.png" : "../assets/Icons/bookmark.png";
 
-const bookmark=()=>{
-    fetch(`/movie-recommender/backend/api/bookmark.php?movie_id=${movie_id}&user_id=${user_id}&bookmarked=${bookmarked}`)
-    .then(response=>response.json())
-    .then(data=>{
-        if(data.success){
-            if(bookmarked===0){
-                console.log("Bookmark created");
-                bookmarkImage.src="../assets/Icons/activebookmark.png"
-                bookmarked=1;
-            }else{
-                console.log("bookmark deleted");
-                bookmarkImage.src="../assets/Icons/bookmark.png"
-                bookmarked=0;
+                // Update star icons based on rating
+                stars.forEach((s, i) => {
+                    s.src = i < rating ? "../assets/Icons/activestar.svg" : "../assets/Icons/rating.png";
+                });
+            } else {
+                console.log("Error in loading user details");
             }
-        }
-    }).catch(error =>{
-        console.error("Fetch error:", error);
-    })
-}
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+        });
+};
+
+const bookmark = () => {
+    fetch(`/movie-recommender/backend/api/bookmark.php?movie_id=${movie_id}&user_id=${user_id}&bookmarked=${bookmarked}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                bookmarked = 1 - bookmarked; // Toggle bookmark status
+                bookmarkImage.src = bookmarked ? "../assets/Icons/activebookmark.png" : "../assets/Icons/bookmark.png";
+                console.log(bookmarked ? "Bookmark created" : "Bookmark deleted");
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+        });
+};
 
 const rate = (event) => {
     const index = [...stars].indexOf(event.target);
     const rating = index + 1;
-    fetch(`http://localhost/movie-recommender/backend/api/rate.php?movie_id=${movie_id}&user_id=${user_id}&rating=${rating}`)
+    fetch(`/movie-recommender/backend/api/rate.php?movie_id=${movie_id}&user_id=${user_id}&rating=${rating}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 console.log("Rating updated");
                 stars.forEach((star, i) => {
-                    if (i < rating) {
-                        star.src = "../assets/Icons/activestar.svg";
-                    } else {
-                        star.src = "../assets/Icons/rating.png";
-                    }
+                    star.src = i < rating ? "../assets/Icons/activestar.svg" : "../assets/Icons/rating.png";
                 });
             }
         })
@@ -105,11 +97,12 @@ const rate = (event) => {
         });
 };
 
-
-document.getElementById("bookmark").addEventListener('click',bookmark);
+// Event listeners
+document.getElementById("bookmark").addEventListener('click', bookmark);
 stars.forEach((star) => {
     star.addEventListener('click', rate);
 });
 
+// Load data on page load
 loadDetails();
 loaduserDetails();
