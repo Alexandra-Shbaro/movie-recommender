@@ -1,4 +1,4 @@
-localStorage.setItem("movie_id",1)
+localStorage.setItem("movie_id",6)
 const movie_id = localStorage.getItem("movie_id");
 
 const loadDetails=()=>{
@@ -8,12 +8,16 @@ const loadDetails=()=>{
     const description = document.getElementById("description");
     const producer = document.getElementById("producer");
     const cast = document.getElementById("cast");
+    const releasedate = document.getElementById("release-date")
     fetch(`/movie-recommender/backend/loadDetails.php?movie_id=${movie_id}`)
     .then(Response=>Response.json())
     .then(data=>{
         if (data.success) {
             console.log("Movie Loaded successfully");
             console.log("Movie Data:", data.data);
+            movieimage.src=`${data.data.movie_image}`;
+            title.innerHTML=data.data.movie_name;
+            
         }else {
             console.log("Error:", data.message); 
         }
