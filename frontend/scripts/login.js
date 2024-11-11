@@ -46,7 +46,8 @@ const Register = () => {
         .then(data => {
             if (data.success) {
                 console.log("User created successfully");
-                localStorage.setItem("userid",data.user_id)
+                localStorage.setItem("userid",data.user_id);
+                window.location.href = "../index.html";
             } else {
                 console.log("Error:", data.message); 
             }
@@ -68,7 +69,8 @@ const Login = () => {
         .then(data => {
             if (data.success) {
                 console.log("User Logged in");
-                localStorage.setItem("userid",data.user_id)
+                localStorage.setItem("userid",data.user_id);
+                window.location.href = "../index.html";
             } else {
                 console.log("Error:", data.message); 
             }
