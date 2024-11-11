@@ -2,23 +2,6 @@
 
 include("connection.php");
 
-if (!isset($_GET["movie_id"])){
-    echo json_encode(["success" => false, "message" => "Movie id is needed."]);
-    exit();
-}
-$movie_id=$_GET['movie_id'];
-
-$sql = $connection->prepare("Select movie_name,release_date,movie_image,movie_producer,g.genre_name,c.actor_name
-                            from movie m join movie_genre mg on m.movie_id=mg.movie_id join genre g on mg.genre_id=g.genre_id join
-                            cast c on m.movie_id=c.movie_id where m.movie_id=?");
-$sql->bind_param("i",$movie_id);
-
-$sql->execute();
-
-$result = $sql->get_result();
-$movie_data = [];
-include("connection.php");
-
 if (!isset($_GET["movie_id"])) {
     echo json_encode(["success" => false, "message" => "Movie id is needed."]);
     exit();
@@ -48,13 +31,10 @@ $sql = $connection->prepare("SELECT
                              WHERE 
                                 m.movie_id = ?");
 
-// Bind the movie_id parameter
 $sql->bind_param("i", $movie_id);
 
-// Execute the query
 $sql->execute();
 
-// Fetch the results
 $result = $sql->get_result();
 
 $movie_data = [];
@@ -88,5 +68,4 @@ $movie_data["cast"] = implode(", ", $cast);
 $sql->close();
 $connection->close();
 
-// Output results as JSON
 echo json_encode(["success" => true, "data" => $movie_data]);

@@ -3,6 +3,7 @@ localStorage.setItem("user_id",5)
 const movie_id = localStorage.getItem("movie_id");
 const user_id = localStorage.getItem("user_id");
 const stars = document.querySelectorAll('#user-rating .star');
+const bookmarkImage=document.getElementById("bookmark-img")
 let bookmarked=0;
 
 const loadDetails = () => {
@@ -35,16 +36,45 @@ const loadDetails = () => {
         });
 };
 
+const loaduserDetails = ()=>{
+    fetch(`/movie-recommender/backend/api/loaduserDetails.php?movie_id=${movie_id}&user_id=${user_id}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log("movie info loaded successfuly");
+            rating = data.data.rating;
+            bookmarked=data.data.bookmark;
+            console.log(data.data.bookmark)
+            if(bookmarked===1){
+                bookmarkImage.src="../assets/Icons/activebookmark.png"
+            }else{
+                bookmarkImage.src="../assets/Icons/bookmark.png"
+            }
+            stars.forEach((s, i) => {
+                if (i < rating) {
+                    s.src = "../assets/Icons/activestar.svg";
+                } else {
+                    s.src = "../assets/Icons/rating.png";
+                }
+            });
+        }else{
+            console.log("what")
+        }
+    });
+}
+
 const bookmark=()=>{
-    fetch(`localhost/movie-recommender/backend/api/bookmark.php?movie_id=${movie_id}$user_id=${user_id}&${bookmarked}`)
-    .then(response=>response.json)
+    fetch(`/movie-recommender/backend/api/bookmark.php?movie_id=${movie_id}&user_id=${user_id}&bookmarked=${bookmarked}`)
+    .then(response=>response.json())
     .then(data=>{
         if(data.success){
             if(bookmarked===0){
-                console.log("Bookmarked created");
+                console.log("Bookmark created");
+                bookmarkImage.src="../assets/Icons/activebookmark.png"
                 bookmarked=1;
             }else{
                 console.log("bookmark deleted");
+                bookmarkImage.src="../assets/Icons/bookmark.png"
                 bookmarked=0;
             }
         }
@@ -61,8 +91,6 @@ const rate = (event) => {
         .then(data => {
             if (data.success) {
                 console.log("Rating updated");
-
-                
                 stars.forEach((star, i) => {
                     if (i < rating) {
                         star.src = "../assets/Icons/activestar.svg";
@@ -77,8 +105,11 @@ const rate = (event) => {
         });
 };
 
+
+document.getElementById("bookmark").addEventListener('click',bookmark);
 stars.forEach((star) => {
     star.addEventListener('click', rate);
 });
 
 loadDetails();
+loaduserDetails();
