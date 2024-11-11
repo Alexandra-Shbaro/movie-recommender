@@ -1,6 +1,8 @@
 localStorage.setItem("movie_id", 6)
+localStorage.setItem("user_id",5)
 const movie_id = localStorage.getItem("movie_id");
-
+const user_id = localStorage.getItem("user_id");
+let bookmarked=0;
 const loadDetails = () => {
     const movierating = document.getElementById("movie-rating");
     const movieimage = document.getElementById("movie-img");
@@ -31,6 +33,26 @@ const loadDetails = () => {
         });
 };
 
+const bookmark=()=>{
+    fetch(`localhost/movie-recommender/backend/api/bookmark.php?movie_id=${movie_id}$user_id=${user_id}&${bookmarked}`)
+    .then(response=>response.json)
+    .then(data=>{
+        if(data.success){
+            if(bookmarked===0){
+                console.log("Bookmarked created");
+                bookmarked=1;
+            }else{
+                console.log("bookmark deleted");
+                bookmarked=0;
+            }
+        }
+    }).catch(error =>{
+        console.error("Fetch error:", error);
+    })
+}
 
+const rate=()=>{
+    
+}
 
 loadDetails();
