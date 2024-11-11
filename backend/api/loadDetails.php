@@ -33,7 +33,7 @@ $sql = $connection->prepare("SELECT
                                 m.movie_image,
                                 m.movie_producer,
                                 g.genre_name,
-                                -- r.rating
+                                r.rating,
                                 c.actor_name
                              FROM 
                                 movie m 
@@ -43,8 +43,8 @@ $sql = $connection->prepare("SELECT
                                 genre g ON mg.genre_id = g.genre_id 
                              JOIN 
                                 cast c ON m.movie_id = c.movie_id 
-                            --  JOIN
-                            --     movie_metrics r ON r.movie_id = m.movie_id
+                              JOIN
+                                movie_metrics r ON r.movie_id = m.movie_id
                              WHERE 
                                 m.movie_id = ?");
 
@@ -69,7 +69,7 @@ while ($row = $result->fetch_assoc()) {
             "movie_image" => $row["movie_image"],
             "movie_producer" => $row["movie_producer"],
             "movie_description"=>$row["movie_description"],
-            // "rating"=> $row["rating"],
+            "rating"=> $row["rating"],
         ];
     }
     

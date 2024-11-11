@@ -36,7 +36,7 @@ const Register = () => {
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-    fetch(`/movie-recommender/backend/register.php`, {
+    fetch(`/movie-recommender/backend/api/register.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const Register = () => {
 const Login = () => {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    fetch(`/movie-recommender/backend/login.php`, {
+    fetch(`/movie-recommender/backend/api/login.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
