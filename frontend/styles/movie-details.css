@@ -1,0 +1,70 @@
+body{
+    color: white;
+    background: linear-gradient(black,grey);
+}
+
+
+.full-container{
+    display: flex;
+    flex-direction: column;
+    padding: 30px 70px 70px 70px;
+}
+.movie-rating{
+    display: flex;
+    font-size: 80px;
+    gap: 20px;
+    align-self: flex-end;
+}
+.movie-rating>.star{
+    height: 80px;
+    width: auto;
+}
+.movie-details-container{
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+}
+.movie-img-container{
+    width: 300px;
+    height: 400px;
+    margin-right: 40px;
+}
+.movie-details{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 60%;
+    height: 400px;
+}   
+.movie-details>h1{
+    font-size: 80px;
+    padding: 0;
+}
+.movie-details>p{
+    font-size: 30px;
+    font-family: "Opensans";
+}
+.bookmark-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+.bookmark-container>img{
+    width: 43px;
+    height: 45px;
+}
+.bookmark-container>h3{
+    font-size: 30px;
+}
+.stars-container{
+    display: flex;
+    gap:20px;
+}
+.star{
+    width: 50px;
+    height: 50px;
+}
+
+
