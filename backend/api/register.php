@@ -41,6 +41,7 @@ try {
         echo json_encode([
             "success" => true,
             "message" => "User created successfully",
+            "user_id" => $userId
         ]);
     } else {
         echo json_encode(["success" => false, "message" => "Error creating user: " . $stmt->error]);
