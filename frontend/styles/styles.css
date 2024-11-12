@@ -131,14 +131,14 @@ header {
 
 /*main*/
 
-#container {
+.container {
   padding: 30px;
   display: flex;
   gap: 20px;
   flex-direction: column;
 }
 
-#container h2 {
+.container h2 {
   font-size: 30px;
   color: var(--white);
   font-weight: lighter;
