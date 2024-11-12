@@ -25,7 +25,9 @@ if (!$data || !isset($data["messages"])) {
 // Prepare data for OpenAI API request
 $postData = json_encode([
     "model" => "gpt-3.5-turbo",
-    "messages" => $data["messages"]
+    "messages" => $data["messages"],
+    "temperature" => 0.8,
+    "n" => 2               
 ]);
 
 // Set up cURL for the OpenAI API request
