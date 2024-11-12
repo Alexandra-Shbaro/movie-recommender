@@ -436,17 +436,16 @@ CREATE TRIGGER after_user_rating_insert
 AFTER INSERT ON user_rating
 FOR EACH ROW
 BEGIN
-    -- Update the movie_metrics table with the floor of the average rating
+    -- Update the movie_metrics table by adding the new rating and recalculating the average
     UPDATE movie_metrics
     SET 
         rating_total = rating_total + NEW.rating,
         rating_count = rating_count + 1,
-        final_count = FLOOR((rating_total + NEW.rating) / (rating_count + 1))
+        final_count = FLOOR(rating_total / rating_count)
     WHERE movie_id = NEW.movie_id;
 END $$
 
 DELIMITER ;
-
 
 DELIMITER $$
 
@@ -454,15 +453,16 @@ CREATE TRIGGER after_user_rating_update
 AFTER UPDATE ON user_rating
 FOR EACH ROW
 BEGIN
-    -- Update the movie_metrics table with the floor of the new average rating
+    -- Update the movie_metrics table by adjusting for the old and new ratings, then recalculating the average
     UPDATE movie_metrics
     SET
         rating_total = rating_total - OLD.rating + NEW.rating,
-        final_count = FLOOR((rating_total - OLD.rating + NEW.rating) / rating_count)
+        final_count = FLOOR(rating_total / rating_count)
     WHERE movie_id = NEW.movie_id;
 END $$
 
 DELIMITER ;
+
 
 
 
