@@ -1,8 +1,10 @@
-localStorage.setItem("movieid", 8);
+localStorage.setItem("movieid", 12);
 const movie_id = localStorage.getItem("movieid");
 const user_id = localStorage.getItem("userid");
 const stars = document.querySelectorAll('#user-rating .star');
 const bookmarkImage = document.getElementById("bookmark-img");
+
+let bookmarked=0;
 
 const loadDetails = () => {
     const movierating = document.getElementById("movie-rating");
@@ -24,7 +26,7 @@ const loadDetails = () => {
                 producer.innerHTML = `Producer: ${data.data.movie_producer}`;
                 cast.innerHTML = `Cast: ${data.data.cast}`;
                 releaseDate.innerHTML = `Release Date: ${data.data.release_date}`;
-                movierating.innerHTML = `${data.data.rating} / 5 <img class="star" src="../assets/Icons/activestar.svg">`;
+                movierating.innerHTML = `<p>${data.data.rating} / 5</p> <img class="star" src="../assets/Icons/activestar.svg">`;
                 genreContainer.innerHTML = '';
                 data.data.genres.forEach(genre => {
                     let genreDiv = document.createElement("div");
@@ -74,8 +76,6 @@ const loaduserDetails = () => {
         
     }
 };
-
-
 
 const bookmark = () => {
     fetch(`/movie-recommender/backend/api/bookmark.php?movie_id=${movie_id}&user_id=${user_id}&bookmarked=${bookmarked}`)

@@ -3,7 +3,7 @@ const userInput = document.getElementById("user-input");
 userId = localStorage.getItem("userid");
 // Messages array to track conversation
 const messages = [
-    { role: "system", content: "You are a movie recommendation assistant. Provide movie suggestions based on genre, user preferences, ratings, and bookmarks." }
+    { role: "system", content: "You are a movie recommendation assistant. Provide movie suggestions based on genre, user preferences, ratings, and bookmarks. The user likes the movies that they have given high ratings, and have bookmarked.The ratings are out of 5 not out of 10" }
 ];
 
 
