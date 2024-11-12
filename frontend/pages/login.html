@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <Link rel="stylesheet" href="../styles/base.css">
-    <Link rel="stylesheet" href="../styles/login.css">
+   <script src="../scripts/common.js"></script> 
+    <script src="../scripts/login.js" defer></script>
+    <link rel="stylesheet" href="../styles/base.css">
+    <link rel="stylesheet" href="../styles/login.css">
     <title>Login</title>
 </head>
 
 <body>
-
     <div class="login-page">
         <div class="login-window">
             <div class="login-title">
@@ -22,16 +23,16 @@
             <div class="form-group">
                 <form class="form-group">
                     <div>
-                    <input type="text" id="username" placeholder="Username">
-                    <img src="../assets/Icons/usericon.png">
+                        <input type="text" id="username" placeholder="Username">
+                        <img src="../assets/Icons/user.png">
                     </div>
                     <div id="email-div">
-                    <input type="text" id="email" placeholder="Email">
-                    <img src="../assets/Icons/email.png">
+                        <input type="text" id="email" placeholder="Email">
+                        <img src="../assets/Icons/email.png">
                     </div>
                     <div>
-                    <input type="password" id="password" placeholder="Password">
-                    <img src="../assets/Icons/password.png">
+                        <input type="password" id="password" placeholder="Password">
+                        <img src="../assets/Icons/password.png">
                     </div>
                     <button type="button" id="login-button">Login</button>
                     <button type="button" id="register-button">Register</button>
@@ -39,7 +40,6 @@
             </div>
         </div>
     </div>
-    <script src="../scripts/login.js"></script>
 </body>
 
 </html>

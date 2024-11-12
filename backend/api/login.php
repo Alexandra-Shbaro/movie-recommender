@@ -1,9 +1,6 @@
 <?php
 include "connection.php";
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 try { 
     $input = file_get_contents("php://input");

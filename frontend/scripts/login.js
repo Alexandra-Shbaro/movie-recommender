@@ -1,3 +1,4 @@
+if (checkUserLoggedIn()) { window.location.href = "index.html" }
 
 let userswitch = 0;
 const loginbtn = document.getElementById("login-button");
@@ -46,10 +47,10 @@ const Register = () => {
         .then(data => {
             if (data.success) {
                 console.log("User created successfully");
-                localStorage.setItem("userid",data.user_id);
+                localStorage.setItem("userid", data.user_id);
                 window.location.href = "../index.html";
             } else {
-                console.log("Error:", data.message); 
+                console.log("Error:", data.message);
             }
         })
         .catch(error => {
@@ -69,10 +70,10 @@ const Login = () => {
         .then(data => {
             if (data.success) {
                 console.log("User Logged in");
-                localStorage.setItem("userid",data.user_id);
+                localStorage.setItem("userid", data.user_id);
                 window.location.href = "../index.html";
             } else {
-                console.log("Error:", data.message); 
+                console.log("Error:", data.message);
             }
         })
         .catch(error => {
@@ -80,5 +81,5 @@ const Login = () => {
         });
 }
 
-loginbtn.addEventListener("click",Login);
-registerbtn.addEventListener("click",Register);
+loginbtn.addEventListener("click", Login);
+registerbtn.addEventListener("click", Register);
