@@ -1,9 +1,9 @@
 let slideIndex = 0;
 const slides = [
-    'assets/images/Thething.jpeg',
-    'assets/images/noel.jpg',
-    'assets/images/venom.jpeg',
-    'assets/images/theCrow.jpg'
+    '../assets/images/Thething.jpeg',
+    '../assets/images/noel.jpg',
+    '../assets/images/venom.jpeg',
+    '../assets/images/theCrow.jpg'
 ];
 
 const container = document.querySelector('.hero');
