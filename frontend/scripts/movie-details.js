@@ -1,4 +1,4 @@
-localStorage.setItem("movieid", 4);
+localStorage.setItem("movieid", 8);
 const movie_id = localStorage.getItem("movieid");
 const user_id = localStorage.getItem("userid");
 
@@ -14,7 +14,7 @@ const loadDetails = () => {
     const producer = document.getElementById("producer");
     const cast = document.getElementById("cast");
     const releaseDate = document.getElementById("release-date");
-
+    const genreContainer = document.querySelector(".genre-container");
     fetch(`/movie-recommender/backend/api/loadDetails.php?movie_id=${movie_id}`)
         .then(response => response.json())
         .then(data => {
@@ -27,6 +27,13 @@ const loadDetails = () => {
                 cast.innerHTML = `Cast: ${data.data.cast}`;
                 releaseDate.innerHTML = `Release Date: ${data.data.release_date}`;
                 movierating.innerHTML = `${data.data.rating} / 5 <img class="star" src="../assets/Icons/activestar.svg">`;
+                genreContainer.innerHTML = '';
+                data.data.genres.forEach(genre => {
+                    let genreDiv = document.createElement("div");
+                    genreDiv.className = "genre";
+                    genreDiv.innerText = genre;
+                    genreContainer.appendChild(genreDiv);
+                });
             } else {
                 console.log("Error:", data.message);
             }
@@ -37,7 +44,6 @@ const loadDetails = () => {
 };
 
 const loaduserDetails = () => {
-    console.log(`/movie-recommender/backend/api/loaduserDetails.php?movie_id=${movie_id}&user_id=${user_id}`)
     fetch(`/movie-recommender/backend/api/loaduserDetails.php?movie_id=${movie_id}&user_id=${user_id}`)
         .then(response => response.json())
         .then(data => {

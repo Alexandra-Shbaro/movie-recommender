@@ -15,7 +15,7 @@ $sql = $connection->prepare("SELECT
                                 m.movie_image,
                                 m.movie_producer,
                                 g.genre_name,
-                                r.rating_total,
+                                r.final_count,
                                 c.cast_name
                              FROM 
                                 movie m 
@@ -46,7 +46,7 @@ while ($row = $result->fetch_assoc()) {
             "movie_image" => $row["movie_image"],
             "movie_producer" => $row["movie_producer"],
             "movie_description" => $row["movie_description"],
-            "rating" => $row["rating_total"], // Corrected to match SQL alias
+            "rating" => $row["final_count"],
         ];
     }
     
