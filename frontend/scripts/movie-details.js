@@ -1,10 +1,7 @@
-// Retrieve movie_id and user_id from localStorage
-localStorage.setItem("movie_id", 6);
-localStorage.setItem("user_id", 5);
-const movie_id = localStorage.getItem("movie_id");
-const user_id = localStorage.getItem("user_id");
+localStorage.setItem("movieid", 4);
+const movie_id = localStorage.getItem("movieid");
+const user_id = localStorage.getItem("userid");
 
-// Select relevant elements
 const stars = document.querySelectorAll('#user-rating .star');
 const bookmarkImage = document.getElementById("bookmark-img");
 let bookmarked = 0;
@@ -40,6 +37,7 @@ const loadDetails = () => {
 };
 
 const loaduserDetails = () => {
+    console.log(`/movie-recommender/backend/api/loaduserDetails.php?movie_id=${movie_id}&user_id=${user_id}`)
     fetch(`/movie-recommender/backend/api/loaduserDetails.php?movie_id=${movie_id}&user_id=${user_id}`)
         .then(response => response.json())
         .then(data => {
