@@ -1,10 +1,8 @@
 localStorage.setItem("movieid", 8);
 const movie_id = localStorage.getItem("movieid");
 const user_id = localStorage.getItem("userid");
-
 const stars = document.querySelectorAll('#user-rating .star');
 const bookmarkImage = document.getElementById("bookmark-img");
-let bookmarked = 0;
 
 const loadDetails = () => {
     const movierating = document.getElementById("movie-rating");
@@ -44,29 +42,40 @@ const loadDetails = () => {
 };
 
 const loaduserDetails = () => {
-    fetch(`/movie-recommender/backend/api/loaduserDetails.php?movie_id=${movie_id}&user_id=${user_id}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("Movie info loaded successfully");
-                const rating = data.data.rating;
-                bookmarked = data.data.bookmark;
-                
-                // Update bookmark icon based on bookmark status
-                bookmarkImage.src = bookmarked === 1 ? "../assets/Icons/activebookmark.png" : "../assets/Icons/bookmark.png";
+    if (user_id) {
+        fetch(`/movie-recommender/backend/api/loaduserDetails.php?movie_id=${movie_id}&user_id=${user_id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Movie info loaded successfully");
+                    const rating = data.data.rating;
+                    bookmarked = data.data.bookmark;
 
-                // Update star icons based on rating
-                stars.forEach((s, i) => {
-                    s.src = i < rating ? "../assets/Icons/activestar.svg" : "../assets/Icons/rating.png";
-                });
-            } else {
-                console.log("Error in loading user details");
-            }
-        })
-        .catch(error => {
-            console.error("Fetch error:", error);
-        });
+                    // Update bookmark icon based on bookmark status
+                    bookmarkImage.src = bookmarked === 1 ? "../assets/Icons/activebookmark.png" : "../assets/Icons/bookmark.png";
+
+                    // Update star icons based on rating
+                    stars.forEach((s, i) => {
+                        s.src = i < rating ? "../assets/Icons/activestar.svg" : "../assets/Icons/rating.png";
+                    });
+                } else {
+                    console.log("Error in loading user details");
+                }
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+            });
+    } else {
+        const starContainer = document.getElementById("user-rating");
+        const bookmarkContainer = document.getElementById("bookmark");
+        
+        starContainer.style.display = "none";     
+        bookmarkContainer.style.display = "none";
+        
+    }
 };
+
+
 
 const bookmark = () => {
     fetch(`/movie-recommender/backend/api/bookmark.php?movie_id=${movie_id}&user_id=${user_id}&bookmarked=${bookmarked}`)
