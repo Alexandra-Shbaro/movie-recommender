@@ -4,19 +4,23 @@ include "connection.php";
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header('Content-Type: application/json'); 
 
 try {
-    // Check if fields are set and not empty
-    if (!isset($_POST['username']) || empty($_POST['username']) ||
-        !isset($_POST['email']) || empty($_POST['email']) ||
-        !isset($_POST['password']) || empty($_POST['password'])) {
+    $input = file_get_contents("php://input");
+
+    $data = json_decode($input, true);
+
+    if (!isset($data['username']) || empty($data['username']) ||
+        !isset($data['email']) || empty($data['email']) ||
+        !isset($data['password']) || empty($data['password'])) {
         echo json_encode(["success" => false, "message" => "Please fill in all required fields."]);
         exit();
     }
 
-    $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $email = $_POST['email'];
+    $username = $data['username'];
+    $password = password_hash($data['password'], PASSWORD_DEFAULT); 
+    $email = $data['email'];
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo json_encode(["success" => false, "message" => "Invalid email format."]);
@@ -34,7 +38,6 @@ try {
     $stmt->bind_param("sss", $username, $password, $email);
 
     if ($stmt->execute()) {
-        $userId = $connection->insert_id;
         echo json_encode([
             "success" => true,
             "message" => "User created successfully",
@@ -46,5 +49,6 @@ try {
     $stmt->close();
     $connection->close();
 } catch (Exception $e) {
-    echo json_encode(["message" => "Unexpected error"]);
+    echo json_encode(["success" => false, "message" => "Unexpected error"]);
 }
+?>
