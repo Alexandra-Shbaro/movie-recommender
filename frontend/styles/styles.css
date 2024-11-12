@@ -130,7 +130,163 @@ header {
 /*main*/
 
 #container{
-    padding: 50px;
+    padding: 30px;
     display:flex; 
+    gap:20px;
     flex-direction: column;
+}
+
+#container h2{
+    font-size: 30px;
+    color: var(--white);
+    font-weight: lighter;
+}
+
+.row-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.movie-row {
+    display: flex;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    gap: 20px;
+}
+
+.movie-row > img {
+    height: 300px;
+    width: 215px;
+    padding: 5px;
+}
+
+#loadMore {
+    flex-shrink: 0;
+    width: 90px;
+    height: 90px;
+    border-radius: 60px;
+    font-size: 40px;
+    color: rgba(255, 255, 255, 0.6); 
+    background-color: transparent;
+    border: none;
+    -webkit-transition: background .4s ease-in-out;
+    -moz-transition: background .4s ease-in-out;
+    transition: background .4s ease-in-out;
+  }
+  
+  #loadMore .fa {
+    color: #fff; 
+  }
+  
+  #loadMore:hover, #loadMore:focus {
+    outline: 0;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  #loadMore .animated {
+    --webkit-transition-property: -webkit-transform;
+    --webkit-transition-duration: 1s;
+    --moz-transition-property: -moz-transform;
+    --moz-transition-duration: 1s;
+    --webkit-animation-name: pulse;
+    --moz-animation-name: pulse;
+    --webkit-animation-duration: 1.5s;
+    --moz-animation-duration: 1.5s;
+    --webkit-animation-iteration-count: infinite;
+    --moz-animation-iteration-count: infinite;
+    --webkit-animation-timing-function: linear;
+    --moz-animation-timing-function: linear;
+  }
+  
+  #loadMore:hover .animated {
+    --webkit-animation-name: pulse;
+    --moz-animation-name: pulse;
+    --webkit-animation-duration: 1.5s;
+    --moz-animation-duration: 1.5s;
+    --webkit-animation-iteration-count: infinite;
+    --moz-animation-iteration-count: infinite;
+    --webkit-animation-timing-function: linear;
+    --moz-animation-timing-function: linear;
+  }
+  
+  @-webkit-keyframes pulse {
+    0% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+  
+    50% {
+      -webkit-transform: scale(1.2);
+      transform: scale(1.2);
+    }
+  
+    100% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+  }
+  
+  @--moz-keyframes pulse {
+    0% {
+      -moz-transform: scale(1);
+      transform: scale(1);
+    }
+  
+    50% {
+      -moz-transform: scale(1.2);
+      transform: scale(1.2);
+    }
+  
+    100% {
+      -moz-transform: scale(1);
+      transform: scale(1);
+    }
+  }
+  
+  /*movie categories*/
+
+  .category{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    padding:85px;
+    gap:85px;
+  }
+
+  .category h2{
+    font-size: 45px;
+    color: var(--white);
+  }
+
+  .category-movies{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 40px; 
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .category-movies img {
+    width: 215px; 
+    height: 300px; 
+    gap:10px;
+  }
+
+  .movie-item {
+    text-align: center; 
+}
+
+  .movie-row > img {
+    height: 300px;
+    width: 215px;
+    padding: 5px;
+}
+
+.movie-title {
+  margin-top: 8px; 
+  font-size: 22px; 
+  color: var(--white);
 }
