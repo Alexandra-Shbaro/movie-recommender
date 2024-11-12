@@ -1,12 +1,12 @@
 const chatWindow = document.getElementById("chat-window");
 const userInput = document.getElementById("user-input");
-
+userId = localStorage.getItem("userid");
 // Messages array to track conversation
 const messages = [
-    { role: "system", content: "You are a friendly and helpful assistant who remembers user preferences." }
+    { role: "system", content: "You are a movie recommendation assistant. Provide movie suggestions based on genre, user preferences, ratings, and bookmarks." }
 ];
 
-// Function to send a message to the PHP backend and receive a response
+
 async function sendMessage() {
     const inputText = userInput.value.trim();
     if (inputText === "") return;
@@ -20,7 +20,23 @@ async function sendMessage() {
 
     // Call the PHP proxy for OpenAI response
     try {
-    const response = await fetch("http://localhost/movie-recommender/OpenAI/index.php", {
+    const userDataResponse = await fetch(`http://localhost/movie-recommender/backend/api/chatbotContext.php?user_id=${userId}`);
+    const data = await userDataResponse.json();
+    let userContextMessage = {
+        role: "system",
+        content: `These are the movies that are in our database :\nMovies: ${JSON.stringify(data.movies_data)}}`
+    };
+    messages.push(userContextMessage);
+    userContextMessage = {
+        role: "system",
+        content: `Here is additional context about the user:\nRatings: ${JSON.stringify(data.userData.ratings)}\nBookmarks: ${JSON.stringify(data.userData.bookmarks)}\nMetrics: ${JSON.stringify(data.userData.metrics)}`
+    };
+
+    messages.push(userContextMessage);
+
+
+
+    const response = await fetch("http://localhost/movie-recommender/backend/api/chatbot.php", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"

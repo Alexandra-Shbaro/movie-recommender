@@ -25,8 +25,7 @@ if (!$data || !isset($data["messages"])) {
 // Prepare data for OpenAI API request
 $postData = json_encode([
     "model" => "gpt-3.5-turbo",
-    "messages" => $data["messages"],
-    "max_tokens" => 100
+    "messages" => $data["messages"]
 ]);
 
 // Set up cURL for the OpenAI API request
@@ -50,4 +49,4 @@ if ($response === false) {
 
 curl_close($ch);
 echo $response;
-?>
+
