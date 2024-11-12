@@ -1,4 +1,4 @@
-localStorage.setItem("movieid", 12);
+localStorage.setItem("movieid", 13);
 const movie_id = localStorage.getItem("movieid");
 const user_id = localStorage.getItem("userid");
 const stars = document.querySelectorAll('#user-rating .star');

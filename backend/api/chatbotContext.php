@@ -69,6 +69,7 @@ while ($row = $result->fetch_assoc()) {
 
     if (!isset($movies_data[$movieId])) {
         $movies_data[$movieId] = [
+            "movie_id"=>$row["movie_id"],
             "movie_name" => $row["movie_name"],
             "release_date" => $row["release_date"],
             "movie_image" => $row["movie_image"],
