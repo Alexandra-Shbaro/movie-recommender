@@ -14,7 +14,7 @@
     src: url('../assets/fonts/OpenSans-Regular.ttf');
 }
 @font-face {
-    font-family: "OpenSans";
+    font-family: "OpenSans Bold";
     src: url('../assets/fonts/OpenSans-Bold.ttf');
     font-weight: bold;
 }
@@ -26,8 +26,14 @@ html{
     margin: 0;
     border: 0;
     box-sizing: border-box;
-    font-family: "BebasNeue";
+    
 }
+
+body{
+    font-family: 'BebasNeue';
+    background: linear-gradient(to bottom, var(--black), var(--grey));
+}
+
 input{
     outline: 0;
 }
