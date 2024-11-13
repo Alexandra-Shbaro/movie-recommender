@@ -65,7 +65,7 @@ const Register = () => {
             if (data.success) {
                 console.log("User created successfully");
                 localStorage.setItem("userid", data.user_id);
-                window.location.href = "../index.html";
+                window.location.href = "./index.html";
             } else {
                 console.log("Error:", data.message);
                 displayError(data.message || "An error occurred during registration.");
@@ -91,7 +91,7 @@ const Login = () => {
             if (data.success) {
                 console.log("User Logged in");
                 localStorage.setItem("userid", data.user_id);
-                window.location.href = "../index.html";
+                window.location.href = "./index.html";
             } else {
              displayError(data.message || "Invalid username or password.");
             }
