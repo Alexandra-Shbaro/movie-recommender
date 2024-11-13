@@ -1,7 +1,7 @@
 <?php
 include("connection.php");
 
-if (!isset($_GET["user_id"])) {
+if (!isset($_GET["user_id"]) || empty($_GET["user_id"])) {
     echo json_encode(["success" => false, "message" => "User ID is required."]);
     exit();
 }
@@ -21,9 +21,9 @@ if ($sql->execute()) {
     if ($result->num_rows > 0) {
         $userdata = $result->fetch_assoc();
         if ($userdata['isBanned'] == 1) {
-            echo json_encode(["success" => true, "data" => $userdata, "message" => "User is banned."]);
+            echo json_encode(["success" => true, "isBanned" => true]);
         } else {
-            echo json_encode(["success" => true, "data" => $userdata, "message" => "User is not banned."]);
+            echo json_encode(["success" => true, "isBanned" => false]);
         }
     } else {
         echo json_encode(["success" => false, "message" => "User not found."]);
@@ -34,4 +34,3 @@ if ($sql->execute()) {
 
 $sql->close();
 $connection->close();
-?>

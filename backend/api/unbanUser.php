@@ -10,7 +10,7 @@ $user_id = $_POST['user_id'];
 
 $sql = $connection->prepare('
     UPDATE user
-    SET isBanned = 1
+    SET isBanned = 0
     WHERE user_id = ?
 ');
 
@@ -18,7 +18,7 @@ $sql->bind_param('i', $user_id);
 
 if ($sql->execute()) {
     if ($sql->affected_rows > 0) {
-        echo json_encode(["success" => true, "message" => "User has been banned."]);
+        echo json_encode(["success" => true, "message" => "User has been unbanned."]);
     } else {
         echo json_encode(["success" => false, "message" => "No user found with the given user_id."]);
     }
@@ -28,4 +28,3 @@ if ($sql->execute()) {
 
 $sql->close();
 $connection->close();
-?>
