@@ -104,7 +104,7 @@ const rate = async (event) => {
             if (data.success) {
                 console.log("Rating updated");
                 stars.forEach((star, i) => {
-                    star.src = i < rating ? "../assets/Icons/activestar.svg" : "../assets/Icons/rating.png";
+                    star.src = i < rating ? "../assets/Icons/active_star.svg" : "../assets/Icons/rating.png";
                 });
             }
         })

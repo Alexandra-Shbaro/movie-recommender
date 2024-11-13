@@ -29,7 +29,7 @@ CREATE TABLE `cast` (
   PRIMARY KEY (`cast_id`),
   KEY `movie_id_fk_idx` (`movie_id`),
   CONSTRAINT `movie_id_fk` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +53,7 @@ CREATE TABLE `genre` (
   `genre_id` int NOT NULL AUTO_INCREMENT,
   `genre_name` varchar(255) NOT NULL,
   PRIMARY KEY (`genre_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +81,7 @@ CREATE TABLE `movie` (
   `movie_image` varchar(255) DEFAULT NULL,
   `movie_producer` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`movie_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,7 +110,7 @@ CREATE TABLE `movie_genre` (
   KEY `movie_genre_ibfk_2` (`genre_id`),
   CONSTRAINT `movie_genre_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `movie_genre_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`genre_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=185 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=185 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +142,7 @@ CREATE TABLE `movie_metrics` (
   PRIMARY KEY (`movie_metrics_id`),
   KEY `movie_metrics_ibfk_1` (`movie_id`),
   CONSTRAINT `movie_metrics_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=291 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=291 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +170,7 @@ CREATE TABLE `user` (
   `isAdmin` tinyint DEFAULT '0',
   `isBanned` tinyint DEFAULT '0',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,7 +200,7 @@ CREATE TABLE `user_bookmark` (
   KEY `movie_id` (`movie_id`),
   CONSTRAINT `user_bookmark_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   CONSTRAINT `user_bookmark_ibfk_2` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,7 +217,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -246,7 +246,7 @@ CREATE TABLE `user_movie_metrics` (
   `user_time` int NOT NULL,
   PRIMARY KEY (`movie_id`,`user_id`),
   CONSTRAINT `user_movie_metrics_ibfk_2` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,7 +262,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -297,7 +297,7 @@ CREATE TABLE `user_rating` (
   KEY `movie_id` (`movie_id`),
   CONSTRAINT `user_rating_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   CONSTRAINT `user_rating_ibfk_2` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`movie_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,7 +314,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -342,3 +342,67 @@ DELIMITER ;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-11-13 21:23:32
+
+DELIMITER $$
+CREATE TRIGGER `before_user_bookmark_delete` BEFORE DELETE ON `user_bookmark` FOR EACH ROW BEGIN
+  -- Update the bookmark count in movie_metrics for the movie associated with the deleted bookmark
+  UPDATE `movie_metrics`
+  SET `bookmark_count` = `bookmark_count` - 1
+  WHERE `movie_id` = OLD.`movie_id`;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `user_bookmark_AFTER_INSERT` AFTER INSERT ON `user_bookmark` FOR EACH ROW BEGIN
+	UPDATE movie_metrics
+    SET bookmark_count = bookmark_count + 1
+    WHERE movie_id = NEW.movie_id;
+END
+$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER `user_movie_metrics_AFTER_INSERT` AFTER INSERT ON `user_movie_metrics` FOR EACH ROW BEGIN
+	UPDATE movie_metrics
+    SET visit_count = visit_count + 1
+    WHERE movie_id = NEW.movie_id;
+
+    UPDATE movie_metrics
+    SET visit_time = visit_time + NEW.user_time
+    WHERE movie_id = NEW.movie_id;
+END
+$$
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER after_user_rating_insert
+AFTER INSERT ON user_rating
+FOR EACH ROW
+BEGIN
+    -- Update the movie_metrics table by adding the new rating and recalculating the average
+    UPDATE movie_metrics
+    SET 
+        rating_total = rating_total + NEW.rating,
+        rating_count = rating_count + 1,
+        final_count = FLOOR(rating_total / rating_count)
+    WHERE movie_id = NEW.movie_id;
+END $$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER after_user_rating_update
+AFTER UPDATE ON user_rating
+FOR EACH ROW
+BEGIN
+    -- Update the movie_metrics table by adjusting for the old and new ratings, then recalculating the average
+    UPDATE movie_metrics
+    SET
+        rating_total = rating_total - OLD.rating + NEW.rating,
+        final_count = FLOOR(rating_total / rating_count)
+    WHERE movie_id = NEW.movie_id;
+END $$
+
+DELIMITER ;
