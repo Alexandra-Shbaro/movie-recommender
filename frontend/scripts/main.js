@@ -35,5 +35,31 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     mostWatched.innerHTML = mostContent;
 
+    document.querySelectorAll('.loadMore').forEach(button => {
+        button.addEventListener('click', () => {
+            const rowContainer = button.closest('.row-container');
+            const movieRow = rowContainer.querySelector('.movie-row'); // Target the container you want to duplicate
+            const scrollAmount = 300; // Adjust as needed
+
+            // Check if the scroll is near the end of the container
+            if (rowContainer.scrollLeft + rowContainer.clientWidth >= rowContainer.scrollWidth - scrollAmount) {
+                // Clone the content of movieRow
+                const clonedContent = Array.from(movieRow.children).map(child => child.cloneNode(true));
+
+                // Append each cloned element back to the movieRow container
+                clonedContent.forEach(clone => movieRow.appendChild(clone));
+
+                // Adjust scroll position to maintain smooth infinite scroll effect
+                rowContainer.scrollLeft -= rowContainer.clientWidth;
+            }
+
+            // Scroll by the specified amount
+            rowContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+    });
+
+
+
+
 })
 

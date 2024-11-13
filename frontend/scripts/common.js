@@ -34,16 +34,32 @@ function checkUserLoggedIn() {
 };
 
 function createMovieCard(movie) {
-    const { movie_image, movie_name, movie_id } = movie
+    const { movie_image, movie_name, movie_id, movie_producer, release_date, avg_rating } = movie
 
     return `
     <a href="/movie-recommender/frontend/pages/movie-details.html?movie_id=${movie_id}">
      <figure class="movie-item">
+            <div class="image-wrapper">
             <img src="${movie_image}" alt="${movie_name}">
+            <div class="movie-slide">
+            <div class="slide-sub-wrapper">
+              <h4>Producer</h4>
+              <h5>${movie_producer}</h5>
+            </div>
+            <div class="slide-sub-wrapper">
+              <h4>Release Date</h4>
+              <h5>${release_date}</h5>
+            </div>
+            <div class="slide-sub-wrapper">
+              <h4>Rating</h4>
+              <h5>${!!avg_rating ? parseInt(avg_rating) + '<img class="star" src="../assets/icons/rating.png">' : "Not Rated"}</h5>
+            </div>
+            </div>
+            </div>
             <figcaption class="movie-title">${movie_name}</figcaption>
       </figure>
     </a>
-    `      
+    `
 }
 
 async function fetchMovies(filter = 'all') {
@@ -53,9 +69,17 @@ async function fetchMovies(filter = 'all') {
             throw new Error(`Error fetching movies: ${response.statusText}`);
         }
         const result = await response.json();
-        return result.data || []; 
+        return result.data || [];
     } catch (error) {
         console.error(error);
-        return []; 
+        return [];
     }
 }
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 0) {
+        header.style.backgroundColor = 'black';
+    } else {
+        header.style.backgroundColor = 'rgba(0, 0, 0, 0.60)';
+    }
+});
