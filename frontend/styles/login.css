@@ -90,3 +90,19 @@ hr {
 .form-group>button:hover {
     background: var(--maroon);
 }
+
+@media only screen and (max-width: 1500px) {
+
+    .form-group {
+        width: 90%;
+        margin: auto;
+    }
+
+    .login-title {
+        padding: 0 30px !important;
+    }
+
+    .login-page {
+        height: 100vh;
+    }
+}
