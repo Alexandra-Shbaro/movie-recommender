@@ -1,16 +1,31 @@
-if (checkUserLoggedIn()) { window.location.href = "index.html" }
+// Check if the user is already logged in
+if (checkUserLoggedIn()) {
+    window.location.href = "index.html";
+}
 
-let userswitch = 0;
+// DOM elements
 const loginbtn = document.getElementById("login-button");
 const registerbtn = document.getElementById("register-button");
 const email = document.getElementById("email-div");
 const logintitle = document.getElementById("login-title");
 const registertitle = document.getElementById("register-title");
 
-
-
+let userswitch = 0;
 email.classList.add("hidden");
 registerbtn.classList.add("hidden");
+
+// Toggle between Register and Login
+const toggleUI = (isRegister) => {
+    email.classList.toggle("hidden");
+    registerbtn.classList.toggle("hidden");
+    loginbtn.classList.toggle("hidden");
+    gsap.to(".line", { duration: 0.5, x: isRegister ? 275 : 0 });
+    userswitch = isRegister ? 1 : 0;
+};
+
+// Event listeners for switching between register and login forms
+registertitle.addEventListener("click", () => toggleUI(true));
+logintitle.addEventListener("click", () => toggleUI(false));
 
 
 const switchtoRegister = () => {
@@ -49,58 +64,72 @@ const clearError = () => {
     errorMessage.classList.add("hidden");
 };
 
-const Register = () => {
+// Handle user registration
+const registerUser = async () => {
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     clearError();
-    fetch(`/movie-recommender/backend/api/register.php`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, email, password }),
-    }).then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("User created successfully");
-                localStorage.setItem("userid", data.user_id);
-                window.location.href = "./index.html";
-            } else {
-                console.log("Error:", data.message);
-                displayError(data.message || "An error occurred during registration.");
-            }
-        })
-        .catch(error => {
-            console.error("Fetch error:", error);
-            displayError("Unable to register at this time. Please try again later.");
+    try {
+        const response = await fetch(`/movie-recommender/backend/api/register.php`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password }),
         });
-}
-const Login = () => {
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            const { user_id } = data
+
+            localStorage.setItem("user_id", user_id);
+            window.location.href = "/movie-recommender/frontend/pages/index.html";
+        } else {
+            console.log("Error:", data.message);
+            displayError(data.message || "An error occurred during registration.");
+        }
+    } catch (error) {
+        console.error("Fetch error:", error);
+        displayError("Unable to register at this time. Please try again later.");
+    }
+};
+
+// Handle user login
+const loginUser = async () => {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     clearError();
-    fetch(`/movie-recommender/backend/api/login.php`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-    }).then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("User Logged in");
-                localStorage.setItem("userid", data.user_id);
-                window.location.href = "./index.html";
-            } else {
-             displayError(data.message || "Invalid username or password.");
-            }
-        })
-        .catch(error => {
-            displayError("Unable to log in at this time. Please try again later.");
-            console.error("Fetch error:", error);
+    try {
+        const response = await fetch(`/movie-recommender/backend/api/login.php`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
         });
-}
 
-loginbtn.addEventListener("click", Login);
-registerbtn.addEventListener("click", Register);
+        const data = await response.json();
+
+        if (data.success) {
+
+            const { user_id, isAdmin } = data
+            localStorage.setItem("user_id", user_id);
+
+            if (isAdmin) {
+                localStorage.setItem("isAdmin", "true");
+                window.location.href = "/movie-recommender/frontend/pages/admin.html";
+            } else {
+                window.location.href = "/movie-recommender/frontend/pages/index.html";
+            }
+        } else {
+            console.log("Error:", data.message);
+            displayError(data.message || "Invalid username or password.");
+        }
+    } catch (error) {
+        console.error("Fetch error:", error);
+        displayError("Unable to log in at this time. Please try again later.");
+    }
+};
+
+// Event listeners for login and register buttons
+loginbtn.addEventListener("click", loginUser);
+registerbtn.addEventListener("click", registerUser);

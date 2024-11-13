@@ -1,5 +1,16 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
+
+    if (checkIfAdmin()) {
+        window.location.href = "/movie-recommender/frontend/pages/admin.html"
+    }
+
+    const chatbotBtn = document.getElementById("chatbot-btn");
+    const chatbotPanel = document.getElementById("chatbot-panel");
+    const closeBtn = document.getElementById("close-btn");
+    const backToTopBtn = document.getElementById('back-to-top-btn');
+
+
     //get newest releases
     const newestReleases = document.getElementById("newest-releases");
     const newestMovies = await fetchMovies('release_date');
@@ -58,11 +69,36 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     });
 
+
+    // Show the button only when scrolled more than the screen height
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > window.innerHeight) {
+            backToTopBtn.style.display = "flex"; // Show the button
+        } else {
+            backToTopBtn.style.display = "none"; // Hide the button
+        }
+    });
+
     document.querySelector(".search-button").addEventListener("click", function () {
         const keyword = document.getElementById('search').value ?? ""
         window.location.href = "/movie-recommender/frontend/pages/movieCategories.html?filter=keyword&keyword=" + keyword
     })
 
+    chatbotBtn.addEventListener("click", () => {
+        chatbotPanel.style.right = "0";
+    });
+
+    closeBtn.addEventListener("click", () => {
+        chatbotPanel.style.right = "-35%";
+    });
+
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
     userId = localStorage.getItem("userid");
 
     recommendedContainer = document.getElementById("recommended");

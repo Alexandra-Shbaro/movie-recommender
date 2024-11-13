@@ -129,3 +129,47 @@ header {
     font-weight: 500;
     font-size: 20px;
 }
+
+.buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.buttons-wrapper button {
+    font-family: OpenSans Bold;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    width: 75px;
+}
+
+.login-btn-header,
+.myaccount-btn-header {
+    background: var(--red);
+    color: white;
+}
+
+.login-btn-header:hover,
+.myaccount-btn-header:hover {
+    background: var(--maroon);
+}
+
+.signup-btn-header,
+.logout-btn-header {
+    background: white;
+}
+
+.signup-btn-header:hover,
+.logout-btn-header:hover {
+    background: rgb(230, 230, 230);
+}
+
+.myaccount-btn-header {
+    width: 100px !important;
+}
+
+.no-movies {
+    font-size: 25px;
+}
