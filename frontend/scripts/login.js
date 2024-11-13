@@ -1,85 +1,95 @@
-if (checkUserLoggedIn()) { window.location.href = "index.html" }
+// Check if the user is already logged in
+if (checkUserLoggedIn()) {
+    window.location.href = "index.html";
+}
 
-let userswitch = 0;
+// DOM elements
 const loginbtn = document.getElementById("login-button");
 const registerbtn = document.getElementById("register-button");
 const email = document.getElementById("email-div");
 const logintitle = document.getElementById("login-title");
 const registertitle = document.getElementById("register-title");
 
-
+// Initialize UI state
+let userswitch = 0;
 email.classList.add("hidden");
 registerbtn.classList.add("hidden");
-const switchtoRegister = () => {
-    if (userswitch === 0) {
-        email.classList.toggle("hidden");
-        registerbtn.classList.toggle("hidden");
-        loginbtn.classList.toggle("hidden")
-        gsap.to(".line", { duration: 0.5, x: 275 })
-        userswitch = 1;
-    }
-}
 
-const switchtoLogin = () => {
-    if (userswitch === 1) {
-        email.classList.toggle("hidden");
-        registerbtn.classList.toggle("hidden");
-        loginbtn.classList.toggle("hidden")
-        gsap.to(".line", { duration: 0.5, x: 0 })
-        userswitch = 0;
-    }
-}
+// Toggle between Register and Login
+const toggleUI = (isRegister) => {
+    email.classList.toggle("hidden");
+    registerbtn.classList.toggle("hidden");
+    loginbtn.classList.toggle("hidden");
+    gsap.to(".line", { duration: 0.5, x: isRegister ? 275 : 0 });
+    userswitch = isRegister ? 1 : 0;
+};
 
-registertitle.addEventListener("click", switchtoRegister);
-logintitle.addEventListener("click", switchtoLogin);
+// Event listeners for switching between register and login forms
+registertitle.addEventListener("click", () => toggleUI(true));
+logintitle.addEventListener("click", () => toggleUI(false));
 
-const Register = () => {
+// Handle user registration
+const registerUser = async () => {
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
-    fetch(`/movie-recommender/backend/api/register.php`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, email, password }),
-    }).then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("User created successfully");
-                localStorage.setItem("userid", data.user_id);
-                window.location.href = "../index.html";
-            } else {
-                console.log("Error:", data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Fetch error:", error);
+
+    try {
+        const response = await fetch(`/movie-recommender/backend/api/register.php`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password }),
         });
-}
-const Login = () => {
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            const { user_id } = data
+
+            localStorage.setItem("user_id", user_id);
+            window.location.href = "/movie-recommender/frontend/pages/index.html";
+        } else {
+            console.log("Error:", data.message);
+        }
+    } catch (error) {
+        console.error("Fetch error:", error);
+    }
+};
+
+// Handle user login
+const loginUser = async () => {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    fetch(`/movie-recommender/backend/api/login.php`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-    }).then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("User Logged in");
-                localStorage.setItem("userid", data.user_id);
-                window.location.href = "../index.html";
-            } else {
-                console.log("Error:", data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Fetch error:", error);
-        });
-}
 
-loginbtn.addEventListener("click", Login);
-registerbtn.addEventListener("click", Register);
+    try {
+        const response = await fetch(`/movie-recommender/backend/api/login.php`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            const { user_id, isAdmin } = data
+            localStorage.setItem("user_id", user_id);
+
+            if (isAdmin) {
+                localStorage.setItem("isAdmin", "true");
+                window.location.href = "/movie-recommender/frontend/pages/admin.html";
+            } else {
+                window.location.href = "/movie-recommender/frontend/pages/index.html";
+            }
+        } else {
+            console.log("Error:", data.message);
+        }
+    } catch (error) {
+        console.error("Fetch error:", error);
+    }
+};
+
+// Event listeners for login and register buttons
+loginbtn.addEventListener("click", loginUser);
+registerbtn.addEventListener("click", registerUser);

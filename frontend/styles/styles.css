@@ -23,6 +23,10 @@
   padding-top: 50px;
 }
 
+.search-lower {
+  margin-top: 120px;
+}
+
 .search h2 {
   color: white !important;
   margin-bottom: 5px;
@@ -207,7 +211,7 @@
 
 /*movie categories*/
 
-.category {
+.section-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -216,12 +220,12 @@
   gap: 40px;
 }
 
-.category h2 {
+.section-wrapper h2 {
   font-size: 45px;
   color: var(--white);
 }
 
-.category-movies {
+.section-movies {
   display: flex;
   flex-wrap: wrap;
   gap: 30px 30px;
@@ -285,45 +289,78 @@
   color: var(--white);
 }
 
-.buttons-wrapper {
+#chatbot-btn {
+  background-color: var(--red);
+  cursor: pointer;
+  border-radius: 100%;
+  padding: 15px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  height: 60px;
+  width: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-
-.buttons-wrapper button {
-  font-family: OpenSans Bold;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-  width: 75px;
+#back-to-top-btn {
+  background-color: black;
+  cursor: pointer;
+  border-radius: 100%;
+  padding: 15px;
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  height: 60px;
+  width: 60px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.login-btn-header,
-.myaccount-btn-header {
-  background: var(--red);
+#chatbot-btn:hover {
+  box-shadow: 0 0 50px rgba(255, 0, 0, 0.4);
+  transform: scale(1.05);
+}
+
+#back-to-top-btn:hover {
+  box-shadow: 0 0 50px rgba(219, 219, 219, 0.4);
+  transform: scale(1.05);
+}
+
+#chatbot-btn img {
+  height: 30px;
+  width: 30px;
+}
+
+/* Chatbot Panel */
+#chatbot-panel {
+  position: fixed;
+  top: 0;
+  right: -35%;
+  height: 100vh;
+  width: 35%;
+  background-color: #4b4b4b;
   color: white;
+  transition: right 0.3s ease;
+  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  padding: 20px;
 }
 
-.login-btn-header:hover,
-.myaccount-btn-header:hover {
-  background: var(--maroon);
-}
 
-.signup-btn-header {
-  background: white;
-}
 
-.signup-btn-header:hover {
-  background: rgb(230, 230, 230);
-}
-
-.myaccount-btn-header {
-  width: 100px !important;
-}
-
-.no-movies {
-  font-size: 25px;
+/* Close Button */
+#close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }

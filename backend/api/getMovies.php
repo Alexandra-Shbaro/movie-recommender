@@ -4,7 +4,7 @@ include "connection.php";
 
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';  // Get the keyword if available
-$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : '';  // Get the keyword if available
+$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : '';
 
 // Function to fetch all movies
 function getAllMovies($connection)
@@ -69,6 +69,51 @@ function getFilteredMovies($connection, $keyword = '')
     return $result;
 }
 
+// Fucntion to get bookmardked movies by user (if any) 
+
+function getBookmarkedMovies($connection, $user_id)
+{
+    // Ensure $user_id is passed correctly
+    if (empty($user_id)) {
+        return null;  // Return null or an empty array if no user ID is provided
+    }
+
+    // SQL query to fetch bookmarked movies for the given user_id
+    $sql = "SELECT DISTINCT (m.movie_id), m.movie_name, m.release_date, m.movie_description, m.movie_image, m.movie_producer, 
+            mm.rating_total / mm.rating_count AS avg_rating 
+            FROM movie m 
+            JOIN movie_metrics mm ON m.movie_id = mm.movie_id
+            JOIN user_bookmark ub ON ub.movie_id = m.movie_id 
+            WHERE ub.user_id = ?";
+
+    // Prepare the statement
+    $stmt = $connection->prepare($sql);
+
+    if ($stmt === false) {
+        // If prepare fails, return null or handle error
+        return null;
+    }
+
+    // Bind the user_id parameter to the prepared statement
+    $stmt->bind_param('i', $user_id);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+
+        // Check if there are results
+        if ($result && $result->num_rows > 0) {
+            return $result;  // Return the result set
+        }else{
+            return [];
+        }
+    }
+
+    // Return an empty result if no movies are found
+    return null;
+}
+
+
 // Handle filters
 switch ($filter) {
     case 'release_date':
@@ -89,7 +134,7 @@ switch ($filter) {
         break;
     case 'bookmarked':
         if ($user_id) {
-            $movies = getFilteredMovies($connection, $keyword); // change this
+            $movies = getBookmarkedMovies($connection, $user_id);
         } else {
             $movies = [];
         }
@@ -98,7 +143,6 @@ switch ($filter) {
         $movies = getAllMovies($connection);
 }
 
-// Prepare response
 $response = [];
 if ($movies->num_rows > 0) {
     $moviesArray = [];
@@ -114,3 +158,4 @@ if ($movies->num_rows > 0) {
 echo json_encode($response);
 
 $connection->close();
+

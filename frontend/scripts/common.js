@@ -1,8 +1,8 @@
 
 const header = document.querySelector("header");
+const logout_btn = document.querySelector(".logout-btn-header");
 
 if (!checkUserLoggedIn()) {
-
     if (header) {
         header.innerHTML += `
         <div class="buttons-wrapper">
@@ -15,23 +15,45 @@ if (!checkUserLoggedIn()) {
         </div>
         `;
     }
-
 } else {
-    if (header) {
+    if (checkIfAdmin() && header) {
         header.innerHTML += `
         <div class="buttons-wrapper">
-           <a href="/movie-recommender/frontend/pages/my-account.html">
+           <button class="logout-btn-header">Logout</button>  
+         </div>`;
+    } else if (header) {
+        header.innerHTML += `
+        <div class="buttons-wrapper">
+           <a href="/movie-recommender/frontend/pages/myAccount.html">
                <button class="myaccount-btn-header">My Account</button>  
-           </a> 
+           </a>
+           <button class="logout-btn-header">Logout</button>  
          </div>`;
     }
 }
 
 
+
 function checkUserLoggedIn() {
-    const user_id = localStorage.getItem("user_id");
+    const user_id = getLoggedInId();
     return !!user_id;
-};
+}
+
+
+function checkIfAdmin() {
+    const isAdmin = localStorage.getItem("isAdmin") == "true"
+    return isAdmin
+}
+
+function getLoggedInId() {
+    const user_id = localStorage.getItem("user_id");
+    return user_id
+}
+
+function logoutUser() {
+    localStorage.removeItem("user_id")
+    window.location.replace("/movie-recommender/frontend/pages/index.html")
+}
 
 function createMovieCard(movie) {
     const { movie_image, movie_name, movie_id, movie_producer, release_date, avg_rating } = movie
@@ -62,7 +84,7 @@ function createMovieCard(movie) {
     `
 }
 
-async function fetchMovies(filter = 'all', keyword = '') {
+async function fetchMovies(filter = 'all', keyword = '', user_id = '') {
     try {
         // If the filter is 'keyword', add the keyword parameter to the URL
         let url = `/movie-recommender/backend/api/getMovies.php?filter=${filter}`;
@@ -70,6 +92,10 @@ async function fetchMovies(filter = 'all', keyword = '') {
         // If a keyword is provided and filter is 'keyword', add the keyword to the URL
         if (filter === 'keyword' && keyword) {
             url += `&keyword=${encodeURIComponent(keyword)}`;
+        }
+        // If a keyword is provided and filter is 'keyword', add the keyword to the URL
+        if (filter === 'bookmarked' && user_id) {
+            url += `&user_id=${encodeURIComponent(user_id)}`;
         }
 
         const response = await fetch(url);
@@ -93,3 +119,9 @@ window.addEventListener('scroll', () => {
         header.style.backgroundColor = 'rgba(0, 0, 0, 0.60)';
     }
 });
+
+document.querySelector(".logout-btn-header")?.addEventListener('click', () => {
+    logoutUser()
+})
+
+

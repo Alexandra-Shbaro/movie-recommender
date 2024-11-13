@@ -6,37 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <Link rel="stylesheet" href="../styles/base.css">
     <link rel="stylesheet" href="../styles/movie-details.css">
+
+    <script src="../scripts/common.js" defer></script>
+    <script src="../scripts/movie-details.js" defer></script>
     <title>Movie Details</title>
 </head>
 
 <body>
+    <header class="header">
+        <div class="logo">
+            <a href="/movie-recommender/frontend/pages/index.html">
+                <img src="../assets/images/logo1.png">
+            </a>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li>
+                    <a href="/movie-recommender/frontend/pages/index.html">Home</a>
+                </li>
+                <li>
+                    <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=release_date">New
+                        Releases</a>
+                </li>
+                <li>
+                    <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=top_rated">Top Rated
+                        Movies</a>
+                </li>
+                <li>
+                    <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=most_watched">Top
+                        Watched
+                        Movies</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
     <div class="full-container">
-        <div id="movie-rating" class="movie-rating"><img class="star" src=""></div>
         <div class="movie-details-container">
             <div class="movie-img-container"><img id="movie-img" src=""></div>
             <div class="movie-details">
-                <h1 id="title"></h1>
-                <p id="description"></p>
-                <div id="bookmark" class="bookmark-container"><img id="bookmark-img" src="../assets/Icons/bookmark.png">
-                    <h3>bookmark</h3>
+                <div class="title-wrapper">
+                    <h1 id="title"></h1>
+                    <div id="movie-rating" class="movie-rating"><img class="star" src=""></div>
                 </div>
-                <div id="user-rating" class="stars-container">
-                    <img class="star" src="../assets/icons/rating.png">
-                    <img class="star" src="../assets/icons/rating.png">
-                    <img class="star" src="../assets/icons/rating.png">
-                    <img class="star" src="../assets/icons/rating.png">
-                    <img class="star" src="../assets/icons/rating.png">
+                <p id="description"></p>
+                <div class="info-wrapper">
+                    <h2 id="release-date"></h2>/
+                    <h2 id="producer"></h2>/
+                    <h2 id="cast"></h2>
+                </div>
+
+                <div>
+                    <div id="bookmark" class="bookmark-container"><img id="bookmark-img"
+                            src="../assets/Icons/bookmark.png">
+                        <h3>bookmark</h3>
+                    </div>
+                    <div id="user-rating" class="stars-container">
+                        <img class="star" src="../assets/icons/rating.png">
+                        <img class="star" src="../assets/icons/rating.png">
+                        <img class="star" src="../assets/icons/rating.png">
+                        <img class="star" src="../assets/icons/rating.png">
+                        <img class="star" src="../assets/icons/rating.png">
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="genre-container">
-        </div>
-        <hr class="line">
-        <h2 id="release-date"></h2>
-        <h2 id="producer"></h2>
-        <h2 id="cast"></h2>
     </div>
-    <script src="../scripts/movie-details.js"></script>
+    <div class="genre-container"> </div>
+
 </body>
 
 </html>

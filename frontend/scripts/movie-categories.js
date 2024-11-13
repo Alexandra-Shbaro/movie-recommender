@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
+
+    if (checkIfAdmin()) {
+        window.location.href = "/movie-recommender/frontend/pages/admin.html"
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const filter = urlParams.get('filter') || 'all';
     const keyword = urlParams.get('keyword') || '';
@@ -38,4 +43,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
         container.innerHTML = "<p class='no-movies'>No results found</p>";
     }
+
+    document.querySelector(".search-button").addEventListener("click", function () {
+        const keyword = document.getElementById('search').value ?? ""
+        window.location.href = "/movie-recommender/frontend/pages/movieCategories.html?filter=keyword&keyword=" + keyword
+    })
+
 });

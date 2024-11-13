@@ -1,109 +1,149 @@
-body{
+body {
     color: white;
-    background: linear-gradient(black,grey);
+    background: linear-gradient(black, rgb(61, 61, 61));
 }
 
 
-.full-container{
+.full-container {
     display: flex;
     flex-direction: column;
-    padding: 30px 70px 70px 70px;
-    gap:30px
+    padding: 30px;
+    margin-top: 120px;
+    gap: 30px
 }
-.movie-rating{
+
+.movie-rating {
     display: flex;
-    font-size: 80px;
+    font-size: 50px;
     gap: 20px;
     align-self: flex-end;
 }
-.movie-rating>.star{
-    height: 80px;
+
+.movie-rating>.star {
+    height: 60px;
     width: auto;
 }
-.movie-details-container{
-    display: flex;
-    flex-direction: row;
-    align-self: flex-start;
-}
-.movie-img-container{
-    width: 300px;
-    height: 400px;
-    margin-right: 40px;
-}
+
 .movie-details-container {
     display: flex;
     flex-direction: row;
     align-self: flex-start;
-    flex-wrap: wrap; /* Allow content to wrap when necessary */
+}
+
+.movie-img-container {
+    width: 250px;
+    height: 350px;
+    margin-right: 40px;
+
+}
+
+.movie-img-container img {
+    border-radius: 10px;
+}
+
+.movie-details-container {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+    flex-wrap: wrap;
+    /* Allow content to wrap when necessary */
 }
 
 .movie-details {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start; /* Start alignment to allow content to grow down */
+    justify-content: space-between;
     width: 70%;
-    height: auto; /* Remove fixed height to allow for dynamic content */
+    height: auto;
 }
+
+.title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 25px !important;
+    padding: 10px;
+    width: 100%;
+}
+
 
 .movie-details>p {
-    font-size: 30px;
-    font-family: "Opensans";
-    margin-bottom: 20px; /* Adds space below paragraph */
-    max-width: 100%; /* Ensures text doesn’t overflow */
+    font-size: 18px;
+    font-family: OpenSans;
+    max-width: 100%;
+    padding: 10px;
 }
 
-.movie-details>h1{
+.movie-details>h1 {
     font-size: 80px;
     padding: 0;
 }
-.bookmark-container{
+
+.bookmark-container {
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 10px;
     gap: 10px;
-    margin: 15px;
+
 }
-.bookmark-container>img{
-    width: 43px;
-    height: 45px;
+
+.bookmark-container>img {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
 }
-.bookmark-container>h3{
-    font-size: 30px;
+
+.bookmark-container>h3 {
+    font-size: 25px;
 }
-.stars-container{
+
+.stars-container {
     display: flex;
-    gap:20px;
+    padding: 7px;
+    gap: 20px;
+    cursor: pointer;
 }
-.star{
-    width: 50px;
-    height: 50px;
+
+.star {
+    width: 40px;
+    height: 40px;
 }
 
 .genre-container {
-    margin: 30px 0px 40px 0px;
     display: flex;
     flex-direction: row;
     gap: 30px;
+    padding: 0 30px;
     flex-wrap: wrap;
 }
-.genre{
+
+.genre {
     font-size: 26px;
     max-width: 200px;
     padding: 5px 25px;
-    background-color: #DB0000;
+    background-color: var(--red);
     border-radius: 30px;
 }
 
-.full-container>h2{
-    margin: 15px 0px;
-    font-size: 48px;
+h2 {
+    display: flex;
+    gap: 10px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--red);
 }
 
-.line {
-    border: none;
-    height: 3px;
-    background-color: white;  
-    margin: 20px 0;       
-    width: 100%;
+h2 p {
+    color: white;
+    font-weight: normal !important;
 }
+
+.info-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px;
+}
+
