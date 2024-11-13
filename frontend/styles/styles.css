@@ -1,61 +1,3 @@
-/*header*/
-.header-wrapper {
-  max-height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  background-attachment: fixed, scroll, scroll;
-  background-position: center;
-
-}
-
-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgb(0 0 0 / 46%);
-  z-index: 10;
-}
-
-/*logo*/
-.logo {
-  font-size: 24px;
-  display: flex;
-  justify-content: left;
-  cursor: pointer;
-  width: 110px;
-}
-
-/*navbar*/
-
-.navbar {
-  display: flex;
-
-}
-
-.navbar ul {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-}
-
-.navbar ul li {
-  margin: 0 50px;
-  position: relative;
-}
-
-.navbar ul li a {
-  text-decoration: none;
-  color: white;
-  font-weight: 500;
-  font-size: 20px;
-}
-
 /*hero-section*/
 .hero {
   max-width: 100%;
@@ -130,15 +72,14 @@ header {
 }
 
 /*main*/
-
-#container {
+.container {
   padding: 30px;
   display: flex;
   gap: 20px;
   flex-direction: column;
 }
 
-#container h2 {
+.container h2 {
   font-size: 30px;
   color: var(--white);
   font-weight: lighter;
@@ -146,8 +87,12 @@ header {
 
 .row-container {
   display: flex;
+  position: relative;
   align-items: center;
+  max-width: 100% !important;
+  overflow: hidden;
   gap: 20px;
+  scroll-behavior: smooth;
 }
 
 .movie-row {
@@ -157,38 +102,50 @@ header {
   gap: 20px;
 }
 
-.movie-row img {
-  height: 300px;
-  width: 215px;
-  padding: 5px;
+.movie-item {
+  max-width: 215px;
 }
 
-#loadMore {
+.image-wrapper img {
+  height: 300px;
+  width: 215px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.loadMore {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 10px;
   flex-shrink: 0;
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 80px;
   border-radius: 60px;
-  font-size: 40px;
-  color: rgba(255, 255, 255, 0.6);
-  background-color: transparent;
+  font-size: 32px;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: rgba(233, 23, 23, 0.863);
   border: none;
   -webkit-transition: background .4s ease-in-out;
   -moz-transition: background .4s ease-in-out;
   transition: background .4s ease-in-out;
 }
 
-#loadMore .fa {
+.loadMore .fa {
   color: #fff;
 }
 
-#loadMore:hover,
-#loadMore:focus {
+.loadMore:hover,
+.loadMore:focus {
   outline: 0;
   color: #fff;
-  background: rgba(255, 255, 255, 0.1);
 }
 
-#loadMore .animated {
+.loadMore .animated {
   --webkit-transition-property: -webkit-transform;
   --webkit-transition-duration: 1s;
   --moz-transition-property: -moz-transform;
@@ -203,7 +160,7 @@ header {
   --moz-animation-timing-function: linear;
 }
 
-#loadMore:hover .animated {
+.loadMore:hover .animated {
   --webkit-animation-name: pulse;
   --moz-animation-name: pulse;
   --webkit-animation-duration: 1.5s;
@@ -256,7 +213,7 @@ header {
   justify-content: center;
   align-items: center;
   padding: 85px;
-  gap: 85px;
+  gap: 40px;
 }
 
 .category h2 {
@@ -267,15 +224,55 @@ header {
 .category-movies {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px 40px;
-  justify-content: space-between;
+  gap: 30px 30px;
+  justify-content: center;
   align-items: flex-start;
 }
 
-.category-movies img {
-  width: 215px;
-  height: 300px;
-  gap: 10px;
+.image-wrapper {
+  position: relative;
+  border-radius: 10px;
+}
+
+
+.image-wrapper:hover .movie-slide {
+  height: calc(100% - 5px);
+  box-shadow: 0px 3px 41px -3px rgba(155, 155, 155, 0.336);
+  padding: 9px;
+}
+
+.movie-slide {
+  position: absolute;
+  bottom: 6px;
+  height: 0;
+  width: 100%;
+  border-radius: 10px;
+  background: rgba(53, 53, 53, 0.856);
+  transition: height 0.5s ease;
+  overflow: hidden;
+  color: white !important;
+  font-family: OpenSans;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.movie-slide h4 {
+  font-weight: bold;
+}
+
+.movie-slide h5 {
+  font-family: OpenSans;
+  font-weight: normal !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.movie-slide h5 img {
+  height: 15px !important;
+  width: 15px !important;
 }
 
 .movie-item {
@@ -325,4 +322,8 @@ header {
 
 .myaccount-btn-header {
   width: 100px !important;
+}
+
+.no-movies {
+  font-size: 25px;
 }

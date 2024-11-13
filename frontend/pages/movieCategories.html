@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/base.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <script src="../scripts/common.js" defer></script>
+    <script src="../scripts/slideshow.js" defer></script>
+    <script src="../scripts/movie-categories.js" defer></script>
+    <title>Movie Recommender</title>
+</head>
+
+<body>
+    <!--header-->
+    <div class="header-wrapper">
+        <header class="header">
+            <div class="logo">
+                <a href="/movie-recommender/frontend/pages/index.html">
+                    <img src="../assets/images/logo1.png">
+                </a>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li>
+                        <a href="/movie-recommender/frontend/pages/index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=release_date">New
+                            Releases</a>
+                    </li>
+                    <li>
+                        <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=top_rated">Top Rated
+                            Movies</a>
+                    </li>
+                    <li>
+                        <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=most_watched">Top Watched
+                            Movies</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <!--movie category-->
+    <section class="category">
+        <h2>Newest Releases</h2>
+        <div class="category-movies">
+        </div>
+    </section>
+</body>
+
+</html>

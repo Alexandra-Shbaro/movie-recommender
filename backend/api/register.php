@@ -19,13 +19,14 @@ try {
     }
 
     $username = $data['username'];
-    $password = password_hash($data['password'], PASSWORD_DEFAULT); 
     $email = $data['email'];
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo json_encode(["success" => false, "message" => "Invalid email format."]);
         exit();
     }
+
+    $password = password_hash($data['password'], PASSWORD_DEFAULT); 
 
     $sql = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
     $stmt = $connection->prepare($sql);
@@ -35,13 +36,15 @@ try {
         exit();
     }
 
-    $stmt->bind_param("sss", $username, $password, $email);
+    $stmt->bind_param("sss", $username, $email, $password);
 
     if ($stmt->execute()) {
+        $user_id = $stmt->insert_id;
+
         echo json_encode([
             "success" => true,
             "message" => "User created successfully",
-            "user_id" => $userId
+            "user_id" => $user_id
         ]);
     } else {
         echo json_encode(["success" => false, "message" => "Error creating user: " . $stmt->error]);

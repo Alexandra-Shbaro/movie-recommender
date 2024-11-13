@@ -1,54 +1,131 @@
-:root{
-    --black:#000000;
-    --white:#ffffff;
-    --grey:#564D4D;
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --grey: #564D4D;
     --red: #DB0000;
-    --maroon:#831010;
+    --maroon: #831010;
 }
+
 @font-face {
-    font-family: 'BebasNeue' ;
+    font-family: 'BebasNeue';
     src: url('../assets/fonts/BebasNeue-Regular.ttf');
 }
+
 @font-face {
     font-family: "OpenSans";
     src: url('../assets/fonts/OpenSans-Regular.ttf');
 }
+
 @font-face {
     font-family: "OpenSans Bold";
     src: url('../assets/fonts/OpenSans-Bold.ttf');
     font-weight: bold;
 }
-html{
+
+html {
     scroll-behavior: smooth;
 }
-*{
+
+* {
     padding: 0;
     margin: 0;
     border: 0;
     box-sizing: border-box;
-    
+
 }
 
-body{
+body {
     font-family: 'BebasNeue';
     background: linear-gradient(to bottom, var(--black), var(--grey));
+    min-height: 100vh;
 }
 
-input{
+input {
     outline: 0;
 }
-img{
+
+img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-button{
+
+button {
     cursor: pointer;
     position: relative;
 }
-a{
+
+a {
     text-decoration: none;
 }
-.hidden{
+
+.hidden {
     display: none;
+}
+
+/*header*/
+.header-wrapper {
+    max-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background-attachment: fixed, scroll, scroll;
+    background-position: center;
+
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+/*logo*/
+.logo {
+    font-size: 24px;
+    display: flex;
+    justify-content: left;
+    cursor: pointer;
+    width: 110px;
+}
+
+/*navbar*/
+.navbar {
+    display: flex;
+
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+}
+
+.navbar ul li a {
+    position: relative;
+}
+
+.navbar ul li {
+    padding: 10px;
+    border-radius: 3px;
+    transition: background 0.3s ease;
+}
+
+.navbar ul li:hover {
+    background-color: rgba(216, 216, 216, 0.123);
+
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
 }
