@@ -102,7 +102,11 @@
   gap: 20px;
 }
 
-.movie-row img {
+.movie-item {
+  max-width: 215px;
+}
+
+.image-wrapper img {
   height: 300px;
   width: 215px;
   border-radius: 10px;
@@ -225,13 +229,6 @@
   align-items: flex-start;
 }
 
-.category-movies img {
-  width: 215px;
-  height: 300px;
-  gap: 10px;
-}
-
-
 .image-wrapper {
   position: relative;
   border-radius: 10px;
@@ -325,4 +322,8 @@
 
 .myaccount-btn-header {
   width: 100px !important;
+}
+
+.no-movies {
+  font-size: 25px;
 }

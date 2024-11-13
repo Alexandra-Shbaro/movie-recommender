@@ -58,6 +58,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     });
 
+    document.querySelector(".search-button").addEventListener("click", function () {
+        const keyword = document.getElementById('search').value ?? ""
+        window.location.href = "/movie-recommender/frontend/pages/movieCategories.html?filter=keyword&keyword=" + keyword
+    })
+
 
 
 

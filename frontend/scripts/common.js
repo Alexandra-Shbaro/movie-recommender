@@ -62,12 +62,21 @@ function createMovieCard(movie) {
     `
 }
 
-async function fetchMovies(filter = 'all') {
+async function fetchMovies(filter = 'all', keyword = '') {
     try {
-        const response = await fetch(`/movie-recommender/backend/api/getMovies.php?filter=${filter}`);
+        // If the filter is 'keyword', add the keyword parameter to the URL
+        let url = `/movie-recommender/backend/api/getMovies.php?filter=${filter}`;
+
+        // If a keyword is provided and filter is 'keyword', add the keyword to the URL
+        if (filter === 'keyword' && keyword) {
+            url += `&keyword=${encodeURIComponent(keyword)}`;
+        }
+
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`Error fetching movies: ${response.statusText}`);
         }
+
         const result = await response.json();
         return result.data || [];
     } catch (error) {
@@ -75,6 +84,7 @@ async function fetchMovies(filter = 'all') {
         return [];
     }
 }
+
 
 window.addEventListener('scroll', () => {
     if (window.scrollY > 0) {

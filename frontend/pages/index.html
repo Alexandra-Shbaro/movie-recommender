@@ -26,16 +26,20 @@
                 <nav class="navbar">
                     <ul>
                         <li>
-                            <a href="#">Home</a>
+                            <a href="/movie-recommender/frontend/pages/index.html">Home</a>
                         </li>
                         <li>
-                            <a href="#">New Releases</a>
+                            <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=release_date">New
+                                Releases</a>
                         </li>
                         <li>
-                            <a href="#">Top Rated Movies</a>
+                            <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=top_rated">Top Rated
+                                Movies</a>
                         </li>
                         <li>
-                            <a href="#">Top Watched Movies</a>
+                            <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=most_watched">Top
+                                Watched
+                                Movies</a>
                         </li>
                     </ul>
                 </nav>
@@ -51,9 +55,8 @@
         <section class="search">
             <h2 class="title">Unlock your next favorite movie</h2>
             <div class="search-container">
-                <input type="text" id="search" class="search-input" placeholder="Search for movies..."
-                    oninput="search()">
-                <button class="search-button" onclick="performSearch()">Search</button>
+                <input type="text" id="search" class="search-input" placeholder="Search for movies...">
+                <button class="search-button">Search</button>
             </div>
         </section>
 
