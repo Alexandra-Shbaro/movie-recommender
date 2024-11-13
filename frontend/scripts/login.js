@@ -8,8 +8,11 @@ const logintitle = document.getElementById("login-title");
 const registertitle = document.getElementById("register-title");
 
 
+
 email.classList.add("hidden");
 registerbtn.classList.add("hidden");
+
+
 const switchtoRegister = () => {
     if (userswitch === 0) {
         email.classList.toggle("hidden");
@@ -33,10 +36,24 @@ const switchtoLogin = () => {
 registertitle.addEventListener("click", switchtoRegister);
 logintitle.addEventListener("click", switchtoLogin);
 
+
+const errorMessage = document.getElementById("error-message");
+
+const displayError = (message) => {
+    errorMessage.textContent = message;
+    errorMessage.classList.remove("hidden");
+};
+
+const clearError = () => {
+    errorMessage.textContent = "";
+    errorMessage.classList.add("hidden");
+};
+
 const Register = () => {
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+    clearError();
     fetch(`/movie-recommender/backend/api/register.php`, {
         method: 'POST',
         headers: {
@@ -51,15 +68,18 @@ const Register = () => {
                 window.location.href = "../index.html";
             } else {
                 console.log("Error:", data.message);
+                displayError(data.message || "An error occurred during registration.");
             }
         })
         .catch(error => {
             console.error("Fetch error:", error);
+            displayError("Unable to register at this time. Please try again later.");
         });
 }
 const Login = () => {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
+    clearError();
     fetch(`/movie-recommender/backend/api/login.php`, {
         method: 'POST',
         headers: {
@@ -73,10 +93,11 @@ const Login = () => {
                 localStorage.setItem("userid", data.user_id);
                 window.location.href = "../index.html";
             } else {
-                console.log("Error:", data.message);
+             displayError(data.message || "Invalid username or password.");
             }
         })
         .catch(error => {
+            displayError("Unable to log in at this time. Please try again later.");
             console.error("Fetch error:", error);
         });
 }

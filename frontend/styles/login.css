@@ -1,3 +1,7 @@
+.hidden{
+    display: none;
+}
+
 body {
     color: white;
     background: linear-gradient(black, grey);
@@ -89,4 +93,9 @@ hr {
 
 .form-group>button:hover {
     background: var(--maroon);
+}
+.error{
+    text-align: center;
+    font-size: 30px;
+    color: red;
 }

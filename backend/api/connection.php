@@ -4,9 +4,9 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-$host = "localhost:3307";
+$host = "localhost";
 $dbuser = "root";
-$dbpass = "alexandra";
+$dbpass = "";
 $dbname = "movie_recommender";
 
 $connection = mysqli_connect($host, $dbuser, $dbpass, $dbname);
