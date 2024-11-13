@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     recommendedContainer = document.getElementById("recommended");
 
-    const recommendrecommendmessages = [
+    const recommendmessages = [
         {
             role: "system",
             content: `

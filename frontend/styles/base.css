@@ -174,6 +174,88 @@ header {
     font-size: 25px;
 }
 
+/* Footer Styling */
+.footer {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1;
+    padding: 10px;
+    min-width: 200px;
+}
+
+.footer-section h2 {
+    color: var(--red);
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.footer-section p, .footer-section ul, .footer-section a {
+    color: var(--white);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-section a {
+    color: var(--grey);
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: var(--red);
+}
+
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons a {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+}
+
+.social-icons img {
+    width: 100%;
+    height: 100%;
+    filter: invert(1); /* Makes icons appear white for dark background */
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--grey);
+    border-top: 1px solid var(--grey);
+    margin-top: 20px;
+}
+
+
 /* Responsive: Show burger menu on mobile */
 @media only screen and (max-width: 768px) {
     .burger-menu {
