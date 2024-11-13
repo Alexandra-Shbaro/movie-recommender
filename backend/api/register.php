@@ -26,6 +26,22 @@ try {
         exit();
     }
 
+    // Check if email already exists
+    $sql = "SELECT COUNT(*) FROM user WHERE email = ?";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->bind_result($email_count);
+    $stmt->fetch();
+    
+    if ($email_count > 0) {
+        echo json_encode(["success" => false, "message" => "A user with this email already exists."]);
+        $stmt->close();
+        $connection->close();
+        exit();
+    }
+
+    // Proceed with user registration
     $password = password_hash($data['password'], PASSWORD_DEFAULT); 
 
     $sql = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
@@ -55,4 +71,3 @@ try {
 } catch (Exception $e) {
     echo json_encode(["success" => false, "message" => "Unexpected error"]);
 }
-?>
