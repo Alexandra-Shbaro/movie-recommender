@@ -75,6 +75,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             backToTopBtn.style.display = "none"; // Hide the button
         }
     });
+    backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,        // Scroll to the top of the page
+            behavior: "smooth"  // Smooth scroll
+        });
+    });
 
     document.querySelector(".search-button").addEventListener("click", function () {
         const keyword = document.getElementById('search').value ?? ""
