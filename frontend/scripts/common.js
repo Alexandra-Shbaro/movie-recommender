@@ -52,6 +52,7 @@ function getLoggedInId() {
 
 function logoutUser() {
     localStorage.removeItem("user_id")
+    localStorage.removeItem("isAdmin")
     window.location.replace("/movie-recommender/frontend/pages/index.html")
 }
 
@@ -110,6 +111,109 @@ async function fetchMovies(filter = 'all', keyword = '', user_id = '') {
         return [];
     }
 }
+
+async function fetchAllUsers() {
+    const url = '/movie-recommender/backend/api/getAllUsers.php'
+
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+            return data.data;
+        } else {
+            throw new Error(data.message || "Failed to fetch users");
+        }
+    } catch (error) {
+        console.error("Error fetching non-admin users:", error);
+        return null;
+    }
+}
+
+async function banUser(user_id) {
+    const url = '/movie-recommender/backend/api/banUser.php';
+
+    if (!user_id) {
+        console.error("User ID is required.");
+        return null;
+    }
+
+    try {
+        const body = `user_id=${encodeURIComponent(user_id)}`; // Encode key and value
+
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded", // URL-encoded content type
+            },
+            body, // Send the encoded string
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+            console.log(data.message); // Success message
+            return data;
+        } else {
+            throw new Error(data.message || "Failed to ban the user.");
+        }
+    } catch (error) {
+        console.error("Error banning user:", error.message);
+        return null;
+    }
+}
+
+async function unbanUser(user_id) {
+    const url = '/movie-recommender/backend/api/unbanUser.php';
+
+    if (!user_id) {
+        console.error("User ID is required.");
+        return null;
+    }
+
+    try {
+        const body = `user_id=${encodeURIComponent(user_id)}`; // Encode key and value
+
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded", // URL-encoded content type
+            },
+            body, // Send the encoded string
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+            console.log(data.message); // Success message
+            return data;
+        } else {
+            throw new Error(data.message || "Failed to unban the user.");
+        }
+    } catch (error) {
+        console.error("Error unbanning user:", error.message);
+        return null;
+    }
+}
+
 
 
 window.addEventListener('scroll', () => {
