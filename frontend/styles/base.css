@@ -37,6 +37,7 @@ html {
 body {
     font-family: 'BebasNeue';
     background: linear-gradient(to bottom, var(--black), var(--grey));
+    min-height: 100vh;
 }
 
 input {

@@ -213,7 +213,7 @@
   justify-content: center;
   align-items: center;
   padding: 85px;
-  gap: 85px;
+  gap: 40px;
 }
 
 .category h2 {
@@ -224,8 +224,8 @@
 .category-movies {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px 40px;
-  justify-content: space-between;
+  gap: 30px 30px;
+  justify-content: center;
   align-items: flex-start;
 }
 

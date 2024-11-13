@@ -4,6 +4,7 @@ include "connection.php";
 
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';  // Get the keyword if available
+$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : '';  // Get the keyword if available
 
 // Function to fetch all movies
 function getAllMovies($connection)
@@ -84,6 +85,13 @@ switch ($filter) {
             $movies = getFilteredMovies($connection, $keyword);
         } else {
             $movies = getAllMovies($connection);
+        }
+        break;
+    case 'bookmarked':
+        if ($user_id) {
+            $movies = getFilteredMovies($connection, $keyword); // change this
+        } else {
+            $movies = [];
         }
         break;
     default:
