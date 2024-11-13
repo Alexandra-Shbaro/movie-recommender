@@ -173,3 +173,23 @@ header {
 .no-movies {
     font-size: 25px;
 }
+
+/* Responsive: Show burger menu on mobile */
+@media only screen and (max-width: 768px) {
+    .burger-menu {
+        display: block;
+    }
+
+    .navbar {
+        display: none;
+    }
+
+    .header.login .logo {
+        display: none;
+    }
+
+    .header.login {
+        justify-content: flex-end;
+    }
+
+}
