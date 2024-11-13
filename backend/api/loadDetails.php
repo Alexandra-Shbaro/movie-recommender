@@ -1,6 +1,7 @@
 <?php
 include("connection.php");
 
+// Check if `movie_id` is provided
 if (!isset($_GET["movie_id"])) {
     echo json_encode(["success" => false, "message" => "Movie id is needed."]);
     exit();
@@ -8,6 +9,7 @@ if (!isset($_GET["movie_id"])) {
 
 $movie_id = $_GET['movie_id'];
 
+// Prepare the main query to fetch movie details
 $sql = $connection->prepare("SELECT 
                                 m.movie_name,
                                 m.movie_description,
@@ -54,7 +56,7 @@ while ($row = $result->fetch_assoc()) {
         $genres[] = $row["genre_name"];
     }
     
-    if (!in_array($row["cast_name"], $cast)) { // Corrected to `cast_name`
+    if (!in_array($row["cast_name"], $cast)) {
         $cast[] = $row["cast_name"];
     }
 }
@@ -63,6 +65,13 @@ $movie_data["genres"] = $genres;
 $movie_data["cast"] = implode(", ", $cast);
 
 $sql->close();
+
+// Increment visit_count in `movie_metrics`
+$update_sql = $connection->prepare("UPDATE movie_metrics SET visit_count = visit_count + 1 WHERE movie_id = ?");
+$update_sql->bind_param("i", $movie_id);
+$update_sql->execute();
+$update_sql->close();
+
 $connection->close();
 
 echo json_encode(["success" => true, "data" => $movie_data]);

@@ -3,7 +3,7 @@ const movie_id = localStorage.getItem("movieid");
 const user_id = localStorage.getItem("userid");
 const stars = document.querySelectorAll('#user-rating .star');
 const bookmarkImage = document.getElementById("bookmark-img");
-
+let startTime = Date.now();
 let bookmarked=0;
 
 const loadDetails = () => {
@@ -53,10 +53,8 @@ const loaduserDetails = () => {
                     const rating = data.data.rating;
                     bookmarked = data.data.bookmark;
 
-                    // Update bookmark icon based on bookmark status
                     bookmarkImage.src = bookmarked === 1 ? "../assets/Icons/activebookmark.png" : "../assets/Icons/bookmark.png";
 
-                    // Update star icons based on rating
                     stars.forEach((s, i) => {
                         s.src = i < rating ? "../assets/Icons/activestar.svg" : "../assets/Icons/rating.png";
                     });
@@ -110,12 +108,46 @@ const rate = (event) => {
         });
 };
 
-// Event listeners
 document.getElementById("bookmark").addEventListener('click', bookmark);
 stars.forEach((star) => {
     star.addEventListener('click', rate);
 });
 
-// Load data on page load
+
+
+const updateTimeSpent = () => {
+    const endTime = Date.now();
+    const timeSpent = Math.floor((endTime - startTime) / 1000);
+
+    if (user_id && movie_id) {
+        fetch(`/movie-recommender/backend/api/updateTime.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                movie_id: movie_id,
+                user_id: user_id,
+                user_time: timeSpent
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Time spent updated successfully");
+            } else {
+                console.log("Error updating time spent:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+        });
+    }
+};
+
+window.addEventListener('beforeunload', updateTimeSpent);
+
+
+
 loadDetails();
 loaduserDetails();
