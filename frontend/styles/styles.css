@@ -515,6 +515,7 @@
 
 .chat-container {
   display: flex;
+  padding-top: 35px;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;

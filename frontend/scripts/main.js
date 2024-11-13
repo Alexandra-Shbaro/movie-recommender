@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         window.location.href = "/movie-recommender/frontend/pages/movieCategories.html?filter=keyword&keyword=" + keyword
     })
 
+
     // Open and close chatbot panel
     const chatbotBtn = document.getElementById("chatbot-btn");
     const chatbotPanel = document.getElementById("chatbot-panel");
@@ -88,27 +89,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     const chatWindow = document.getElementById("chat-window");
     const userInput = document.getElementById("user-input");
     const submitButton = document.getElementById("submit-btn");
-
-    let userId = localStorage.getItem("userid");
-    let profileSent = false;
-
-    const messages = [
-        {
-            role: "system",
-            content: `
-        You are a friendly and knowledgeable movie recommendation assistant. 
-        Your primary goal is to help users discover movies they'll enjoy based on their preferences. 
-
-        Keep these guidelines in mind:
-        - Give recommendations based on the user’s ratings of genres or movies: higher ratings mean they enjoy those categories, while lower ratings indicate they dislike them (1 star is the lowest, and 5 stars is the highest).
-        - If the user has bookmarked a movie, assume they liked it.
-        - Avoid recommending movies the user has already watched, rated, or bookmarked unless they specifically ask to see them again.
-        - If the user requests it, provide your answers as a JSON object. Otherwise, respond conversationally.
-
-        Remember to ask questions to better understand the user's taste and preferences, and continue conversations naturally. Be proactive in guiding the user towards movies they might enjoy!
-        `
-        }
-    ];
 
     // Show and hide chatbot panel
     chatbotBtn.addEventListener("click", () => {
@@ -119,22 +99,34 @@ document.addEventListener("DOMContentLoaded", async function () {
         chatbotPanel.style.right = "-35%";
     });
 
-    // Display a message in the chat window
-    function displayMessage(role, text) {
-        const messageElement = document.createElement("div");
-        messageElement.classList.add("message", role);
+    let userId = localStorage.getItem("userid");
 
-        const messageBubble = document.createElement("div");
-        messageBubble.classList.add("message-bubble");
-        messageBubble.textContent = text;
 
-        messageElement.appendChild(messageBubble);
-        chatWindow.appendChild(messageElement);
+    userId = localStorage.getItem("userid");
 
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
 
-    // Send a message
+    const messages = [
+        {
+            role: "system",
+            content: `
+            You are a friendly and knowledgeable movie recommendation assistant. 
+            Your primary goal is to help users discover movies they'll enjoy based on their preferences. 
+    
+            Keep these guidelines in mind:
+            - Give recommendations based on the user's ratings of genres or movies: higher ratings mean they enjoy those categories, while lower ratings indicate they dislike them (1 star is the lowest, and 5 stars is the highest).
+            - If the user has bookmarked a movie, assume they liked it.
+            - Avoid recommending movies the user has already watched, rated, or bookmarked unless they specifically ask to see them again.
+            - If the user requests it, provide your answers as a JSON object. Otherwise, respond conversationally.
+    
+            Remember to ask questions to better understand the user's taste and preferences, and continue conversations naturally. Be proactive in guiding the user towards movies they might enjoy!
+            `
+        }
+    ];
+
+
+    // Flag to indicate that the profile data has been sent
+    let profileSent = false;
+
     async function sendMessage() {
         const inputText = userInput.value.trim();
         if (inputText === "") return;
@@ -191,7 +183,23 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    // Event listeners for sending messages
+
+
+
+    function displayMessage(role, text) {
+        const messageElement = document.createElement("div");
+        messageElement.classList.add("message", role);
+
+        const messageBubble = document.createElement("div");
+        messageBubble.classList.add("message-bubble");
+        messageBubble.textContent = text;
+
+        messageElement.appendChild(messageBubble);
+        chatWindow.appendChild(messageElement);
+
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
     userInput.addEventListener("keypress", function (event) {
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
@@ -221,7 +229,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     ];
 
-    async function sendMessage() {
+    async function sendRecommendation() {
         try {
             const userDataResponse = await fetch(`http://localhost/movie-recommender/backend/api/chatbotContext.php?user_id=${userId}`);
             const data = await userDataResponse.json();
@@ -334,7 +342,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    sendMessage();
+    sendRecommendation();
 
 })
 
