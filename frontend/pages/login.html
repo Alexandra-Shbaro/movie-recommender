@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-   <script src="../scripts/common.js"></script> 
+    <script src="../scripts/common.js"></script>
     <script src="../scripts/login.js" defer></script>
     <link rel="stylesheet" href="../styles/base.css">
     <link rel="stylesheet" href="../styles/login.css">
@@ -13,6 +13,57 @@
 </head>
 
 <body>
+    <div class="header-wrapper">
+        <header class="header login">
+            <div class="logo">
+                <a href="/movie-recommender/frontend/pages/index.html">
+                    <img src="../assets/images/logo1.png">
+                </a>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li>
+                        <a href="/movie-recommender/frontend/pages/index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=release_date">New
+                            Releases</a>
+                    </li>
+                    <li>
+                        <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=top_rated">Top Rated
+                            Movies</a>
+                    </li>
+                    <li>
+                        <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=most_watched">Top Watched
+                            Movies</a>
+                    </li>
+                </ul>
+            </nav>
+            <img class="burger-menu" src="../assets/icons/menu.png">
+        </header>
+    </div>
+    <div class="overlay-menu" id="overlayMenu">
+        <nav class="overlay-navbar">
+            <ul>
+                <li>
+                    <a href="/movie-recommender/frontend/pages/index.html">Home</a>
+                </li>
+                <li>
+                    <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=release_date">New
+                        Releases</a>
+                </li>
+                <li>
+                    <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=top_rated">Top Rated
+                        Movies</a>
+                </li>
+                <li>
+                    <a href="/movie-recommender/frontend/pages/movieCategories.html?filter=most_watched">Top Watched
+                        Movies</a>
+                </li>
+            </ul>
+            <button class="close-menu">Close</button>
+        </nav>
+    </div>
     <div class="login-page">
         <div class="login-window">
             <div class="login-title">
@@ -25,20 +76,20 @@
                     <div id="error-message" class="hidden error"></div>
                     <div>
                         <input type="text" id="username" placeholder="Username">
-                        <img src="../assets/Icons/user.png">
+                        <img src="../assets/icons/user.png">
                     </div>
                     <div id="email-div">
                         <input type="text" id="email" placeholder="Email">
-                        <img src="../assets/Icons/email.png">
+                        <img src="../assets/icons/email.png">
                     </div>
                     <div>
                         <input type="password" id="password" placeholder="Password">
-                        <img src="../assets/Icons/password.png">
+                        <img src="../assets/icons/password.png">
                     </div>
                     <button type="button" id="login-button">Login</button>
                     <button type="button" id="register-button">Register</button>
                 </form>
-                
+
             </div>
         </div>
     </div>

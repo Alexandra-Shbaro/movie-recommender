@@ -133,3 +133,4 @@ const loginUser = async () => {
 // Event listeners for login and register buttons
 loginbtn.addEventListener("click", loginUser);
 registerbtn.addEventListener("click", registerUser);
+

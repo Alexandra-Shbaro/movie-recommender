@@ -6,12 +6,15 @@ if (!checkUserLoggedIn()) {
     if (header) {
         header.innerHTML += `
         <div class="buttons-wrapper">
+        <div>
           <a href="/movie-recommender/frontend/pages/login.html">
               <button class="login-btn-header">Login</button>
           </a>
           <a href="/movie-recommender/frontend/pages/login.html">
               <button class="signup-btn-header">Signup</button>  
-          </a> 
+          </a>
+        </div>
+          <img class="burger-menu" src="../assets/icons/menu.png">   
         </div>
         `;
     }
@@ -24,10 +27,13 @@ if (!checkUserLoggedIn()) {
     } else if (header) {
         header.innerHTML += `
         <div class="buttons-wrapper">
+          <div>
            <a href="/movie-recommender/frontend/pages/myAccount.html">
                <button class="myaccount-btn-header">My Account</button>  
            </a>
-           <button class="logout-btn-header">Logout</button>  
+           <button class="logout-btn-header">Logout</button>
+          </div>
+           <img class="burger-menu" src="../assets/icons/menu.png">   
          </div>`;
     }
 }
@@ -214,6 +220,40 @@ async function unbanUser(user_id) {
     }
 }
 
+async function checkUserBanned(user_id) {
+    const url = `/movie-recommender/backend/api/checkBanned.php?user_id=${encodeURIComponent(user_id)}`;
+
+    if (!user_id) {
+        console.error("User ID is required.");
+        return false;
+    }
+
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const { success, isBanned } = await response.json();
+
+        if (success) {
+            return isBanned;
+        } else {
+            console.error("Failed to check user ban status.");
+            return false;
+        }
+    } catch (error) {
+        console.error("Error checking user ban status:", error.message);
+        return false;
+    }
+}
+
 
 
 window.addEventListener('scroll', () => {
@@ -227,5 +267,22 @@ window.addEventListener('scroll', () => {
 document.querySelector(".logout-btn-header")?.addEventListener('click', () => {
     logoutUser()
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const overlayMenu = document.getElementById("overlayMenu");
+
+
+    // Open the overlay menu
+    document.querySelector(".burger-menu")?.addEventListener("click", () => {
+        overlayMenu?.classList.add("active");
+    });
+
+    // Close the overlay menu
+    document.querySelector(".close-menu")?.addEventListener("click", () => {
+        overlayMenu.classList.remove("active");
+    });
+});
+
 
 

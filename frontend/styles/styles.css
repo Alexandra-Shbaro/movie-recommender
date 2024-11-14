@@ -594,7 +594,7 @@
 
 
 
-@media only screen and (max-width: 1500px) {
+@media only screen and (max-width: 1000px) {
   .search-container {
     display: flex;
     max-width: 100% !important;
