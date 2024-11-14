@@ -124,8 +124,13 @@ document.addEventListener("DOMContentLoaded", async function () {
             });
 
             messages.push({
+                role: "system",
+                content: "Please provide the movie recommendations strictly as a JSON object, with the format { recommendations: [...] }."
+            });
+
+            messages.push({
                 role: "user",
-                content: `give me 6 movie recommendations as a JSON object`
+                content: `give me 6 random movie recommendations as a JSON object`
             });
 
             const response = await fetch("http://localhost/movie-recommender/backend/api/chatbot.php?fast=1", {

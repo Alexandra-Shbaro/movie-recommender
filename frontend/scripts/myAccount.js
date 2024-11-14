@@ -22,18 +22,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     const movies = await fetchMovies("bookmarked", '', user_id)
 
 
-    const container = document.querySelector(".account-movies");
+    const uniqueMovies = Array.from(new Set(movies.map(movie => movie.id)))
+    .map(id => movies.find(movie => movie.id === id));
 
-    // Check if there are bookmarked movies and display them, or show a 'No results found' message
-    if (movies.length > 0) {
-        let content = "";
-        movies.map(movie => {
-            content += createMovieCard(movie);
-        });
-        container.innerHTML = content;
-    } else {
-        container.innerHTML = "<p class='no-movies'>No Bookmarks found</p>";
-    }
+const container = document.querySelector(".account-movies");
+
+// Check if there are bookmarked movies and display them, or show a 'No results found' message
+if (uniqueMovies.length > 0) {
+    let content = "";
+    uniqueMovies.map(movie => {
+        content += createMovieCard(movie);
+    });
+    container.innerHTML = content;
+} else {
+    container.innerHTML = "<p class='no-movies'>No Bookmarks found</p>";
+}
 
 
 
