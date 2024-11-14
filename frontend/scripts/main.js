@@ -1,9 +1,21 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
 
-    if (checkIfAdmin()) {
-        window.location.href = "/movie-recommender/frontend/pages/admin.html"
+    if (checkUserLoggedIn()) {
+        const user_id = getLoggedInId()
+
+        const isBanned = await checkUserBanned(user_id)
+
+        if (isBanned) {
+            logoutUser(user_id)
+            alert('You have been banned. You cannot login anymore.')
+        }
+
+        if (checkIfAdmin()) {
+            window.location.href = "/movie-recommender/frontend/pages/admin.html"
+        }
     }
+
 
     const backToTopBtn = document.getElementById('back-to-top-btn');
 
@@ -230,13 +242,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     const userInput = document.getElementById("user-input");
     const submitButton = document.getElementById("submit-btn");
 
-    // Show and hide chatbot panel
     chatbotBtn.addEventListener("click", () => {
-        chatbotPanel.style.right = "0";
+        if (window.innerWidth < 768) {
+            chatbotPanel.style.right = "0"; // Fully visible for small screens
+            chatbotPanel.style.width = "100%"
+        } else {
+            chatbotPanel.style.right = "0"; // Fully visible for larger screens
+              chatbotPanel.style.width = "35%"
+        }
     });
 
     closeBtn.addEventListener("click", () => {
-        chatbotPanel.style.right = "-35%";
+        if (window.innerWidth < 768) {
+            chatbotPanel.style.right = "-100%"; // Move completely off-screen to the right for mobile
+        } else {
+            chatbotPanel.style.right = "-35%"; // Move partially off-screen to the right for larger screens
+        }
     });
 
 

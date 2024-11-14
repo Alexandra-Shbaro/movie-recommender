@@ -353,6 +353,7 @@
 
 
 
+
 /* Close Button */
 #close-btn {
   background: none;
@@ -360,6 +361,7 @@
   color: white;
   font-size: 30px;
   cursor: pointer;
+  width: fit-content;
   position: absolute;
   top: 20px;
   right: 20px;
@@ -386,7 +388,8 @@
 }
 
 .styled-table thead tr {
-  background-color: #d9534f; /* Red header */
+  background-color: #d9534f;
+  /* Red header */
   color: #ffffff;
 }
 
@@ -396,7 +399,8 @@
 }
 
 .styled-table tbody tr {
-  background-color: #ffffff; /* White rows */
+  background-color: #ffffff;
+  /* White rows */
 }
 
 .action-buttons {
@@ -417,11 +421,13 @@
 }
 
 .ban-btn {
-  background-color: #d9534f; /* Red for ban */
+  background-color: #d9534f;
+  /* Red for ban */
 }
 
 .unban-btn {
-  background-color: rgb(111, 209, 111); /* Green for unban */
+  background-color: rgb(111, 209, 111);
+  /* Green for unban */
 }
 
 .ban-btn:hover {
@@ -614,8 +620,10 @@
 
   .row-container {
     overflow: scroll;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE */
   }
 
   .row-container::-webkit-scrollbar {
@@ -659,7 +667,9 @@
   /* Ensures chatbot panel is hidden off-screen on small devices */
   .chatbot-panel {
     right: -100%;
+
   }
+
 
   .styled-table {
     font-size: 14px;
@@ -681,6 +691,7 @@
     padding: 10px;
     border-radius: 10px;
   }
+
 
   .styled-table tbody td {
     display: flex;
@@ -706,4 +717,3 @@
     margin-right: 30px !important;
   }
 }
-
