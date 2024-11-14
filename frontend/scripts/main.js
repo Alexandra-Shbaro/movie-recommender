@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         window.location.href = "/movie-recommender/frontend/pages/movieCategories.html?filter=keyword&keyword=" + keyword
     })
 
+    let userId = localStorage.getItem("userid");
 
     recommendedContainer = document.getElementById("recommended");
 
@@ -94,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         {
             role: "system",
             content: `
-            You are a movie recommendation assistant. Provide movie suggestions based on the user's preferences, ratings, and viewing history.Your answers should be a JSON object.
+            You are a movie recommendation assistant that returns JSON objects. Provide movie suggestions in JSON based on the user's preferences, ratings, and viewing history.Your answers should be a JSON object.
     
             Keep these guidelines in mind:
             - Give recommendations based on the user’s ratings of genres or movies: higher ratings mean they enjoy those categories, while lower ratings indicate they dislike them (1 star is the lowest, and 5 stars is the highest).
@@ -111,6 +112,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         try {
             const userDataResponse = await fetch(`http://localhost/movie-recommender/backend/api/chatbotContext.php?user_id=${userId}`);
             const data = await userDataResponse.json();
+            console.log("User data:", data);
 
             messages.push({
                 role: "system",
@@ -128,9 +130,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             const response = await fetch("http://localhost/movie-recommender/backend/api/chatbot.php?fast=1", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ messages }),
                 mode: 'cors'
             });
@@ -140,15 +140,18 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
 
             const result = await response.json();
-            console.log("API response:", result);
-            const assistantMessage = result.choices[0].message.content;
+            console.log("API response:", result);  // Check the structure of the response
 
+            const assistantMessage = result.choices[0].message.content;
             console.log("Assistant message:", assistantMessage);
 
             let recommendedMovies;
             try {
                 const parsedResponse = JSON.parse(assistantMessage);
-                recommendedMovies = parsedResponse.recommendations;
+
+                // Check if the response contains either `recommendations` or `movie_recommendations`
+                recommendedMovies = parsedResponse.recommendations || parsedResponse.movie_recommendations;
+
             } catch (parseError) {
                 console.error("JSON parsing error:", parseError);
                 return;
@@ -178,7 +181,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 const movieSlide = document.createElement("div");
                 movieSlide.classList.add("movie-slide");
 
-
                 const releaseWrapper = document.createElement("div");
                 releaseWrapper.classList.add("slide-sub-wrapper");
                 const releaseTitle = document.createElement("h4");
@@ -203,13 +205,17 @@ document.addEventListener("DOMContentLoaded", async function () {
                 movieLink.appendChild(movieItem);
 
                 recommendedContainer.appendChild(movieLink);
-                
             });
+
+
+
             messages = [];
         } catch (error) {
             console.error("Error:", error);
         }
     }
+
+    sendRecommendation();
 
     // Open and close chatbot panel
     const chatbotBtn = document.getElementById("chatbot-btn");
@@ -228,11 +234,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         chatbotPanel.style.right = "-35%";
     });
 
-    let userId = localStorage.getItem("userid");
 
 
     userId = localStorage.getItem("userid");
-         messages = [
+    messages = [
         {
             role: "system",
             content: `
@@ -335,8 +340,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     submitButton.addEventListener("click", sendMessage);
-
-    sendRecommendation();
 
 })
 

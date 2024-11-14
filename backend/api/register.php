@@ -41,6 +41,9 @@ try {
         exit();
     }
 
+    // Free the result set after using it
+    $stmt->free_result();  // This frees the result set
+
     // Proceed with user registration
     $password = password_hash($data['password'], PASSWORD_DEFAULT); 
 
@@ -69,5 +72,5 @@ try {
     $stmt->close();
     $connection->close();
 } catch (Exception $e) {
-    echo json_encode(["success" => false, "message" => "Unexpected error"]);
+    echo json_encode(["success" => false, "message" => $e->getMessage()]);
 }
